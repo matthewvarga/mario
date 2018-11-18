@@ -37,79 +37,64 @@ class Painter {
         return this._canvas;
     }
 
+    /**
+     * clears the canvas.
+     */
     clear() {
         let canvas = this.getCanvas();
         let context = this.getcontext();
-        console.log("clearing");
-        console.log("width: " + canvas.width);
         context.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    drawTest() {
-        this.clear();
-        let layer = Map.getLayer("background");
-        let visibleTiles = layer.getSurroundingTiles(4, 4, 4, 3);
-
-        console.log("visibleTiles");
-        console.log(visibleTiles);
+    /**
+     * Takes the (x,y) coordinates of a tile, and the number of rows / columns to be drawn, 
+     * then centers the tile as closely as possible, and drawns the surrounding.
+     * 
+     * @param {*} layerName - layer that will be drawn
+     * @param {*} tileXCoord - x coordinate of tile being centered / surrounded
+     * @param {*} tileYCoord - y coordinate of tile being centered / surrounded
+     * @param {*} numCols - number of columns being drawn
+     * @param {*} numRows - number of rows being drawn
+     * @param {*} offsetLeft - left offset in which the surrounding is being drawn
+     * @param {*} offsetTop - top offset in which the surrounding is being drawn
+     */
+    drawSurroundingTiles(layerName, tileXCoord, tileYCoord, numCols, numRows, offsetLeft, offsetTop) {
         let context = this.getcontext();
-        for(let y = 0; y < visibleTiles.length; y++) {
-            for(let x = 0; x < visibleTiles[y].length; x++) {
-                // draw tile outline
-                context.beginPath();
-                context.rect(x*48, y*48, 48, 48);
-                context.stroke();
-                context.closePath();
-
-                // write tile number inside of it
-                context.beginPath();
-                context.font = "12px Arial";
-                context.fillText(visibleTiles[y][x].tileInfo, x*48 + 15, y*48 + 30);
-                context.closePath();
-            }
-        }
-    }
-
-    drawLayerVisibleSection(layerName, visibleStartingCol, visibleStartingRow, leftOffset, topOffset) {
-        let numVisibleRows = Map.getNumVisibleRows();
-        let numVisibleCols = Map.getNumVisibleCols();
-
         let layer = Map.getLayer(layerName);
+        let w = layer.getTileWidth();
+        let h = layer.getTileHeight();
+        let surroundingtiles = layer.getSurroundingTiles(tileXCoord, tileYCoord, numCols, numRows);
 
-        let tileWidth = layer.getTileWidth();
-        let tileHeight = layer.getTileHeight();
-
-        let numRows = layer.getNumRows();
-        let numCols = layer.getNumCols();
-
-        let context = this.getcontext();
-
-        console.log("painter");
-        console.log(context);
-
-        // clear the canvas
         this.clear();
 
-        for(let x = 0; x < numVisibleRows; x++) {
-            for(let y = 0; y < numVisibleCols; y++) {
-                let tile = layer.getTile(visibleStartingCol+x, visibleStartingRow+y);
+        for(let y = 0; y < surroundingtiles.length; y++) {
+            for(let x = 0; x < surroundingtiles[y].length; x++) {
 
-                // draw tile outline
-                context.beginPath();
-                context.rect(x*tileWidth+leftOffset, y*tileHeight+topOffset, tileWidth, tileHeight);
-                context.stroke();
-                context.closePath();
+                // if draing center tile
+                if(x == tileXCoord && y == tileYCoord) {
+                    context.beginPath()
+                    context.fillStyle="red";
+                    context.fillRect(x*w+offsetLeft, y*h+offsetTop, w, h);
+                    context.closePath();
+                }
+                else {
+                    // draw tile outline
+                    context.beginPath();
+                    context.fillStyle="#000000";
+                    context.rect(x*w+offsetLeft, y*h+offsetTop, w, h);
+                    context.stroke();
+                    context.closePath();
+                }
 
                 // write tile number inside of it
                 context.beginPath();
+                context.fillStyle="#000000";
                 context.font = "12px Arial";
-                context.fillText(tile.tileInfo, x*tileWidth + 15 + leftOffset, y*tileHeight + 30 + topOffset);
+                context.fillText(surroundingtiles[y][x].tileInfo, x*48 + 15, y*48 + 30);
                 context.closePath();
             }
         }
-
     }
-   
 }
 
 export default new Painter();

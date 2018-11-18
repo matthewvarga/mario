@@ -5,8 +5,8 @@ class Map {
         this._layers = {};
 
         // number of visible rows and columns, default: 3.
-        this._visibleRows = 3;
-        this._visibleCols = 3;
+        this._visibleRows = 10;
+        this._visibleCols = 10;
     }
 
     /**

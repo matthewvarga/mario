@@ -54,9 +54,7 @@ class Scroller extends Component {
         if(this.state.context && this.state.canvas) {
             Painter.setContext(this.state.context);
             Painter.setCanvas(this.state.canvas);
-            Painter.drawLayerVisibleSection("background", 2, 3, -13, 20);
-            Painter.drawLayerVisibleSection("background", 2, 3, 13, -20);
-            Painter.drawTest();
+            Painter.drawSurroundingTiles("background", 4, 4, Map.getNumVisibleCols(), Map.getNumVisibleRows(), 12, 12);
         }
 
         return (
