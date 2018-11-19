@@ -6,6 +6,7 @@ import Map from "../../map/Map";
 import Layer from "../../layer/Layer";
 import Painter from "../../painter/Painter";
 import testMap from "./testMap.json";
+import Player from "../../player/Player";
 import './index.css';
 
 class Scroller extends Component {
@@ -42,11 +43,18 @@ class Scroller extends Component {
     // gets called for every game tick
     onTick() {
         //console.log("tick");
+        
     }
 
     // gets called whenever a key is pressed
     onKeyDown(keyCode) {
         console.log("key: " + keyCode);
+
+        // move right
+        if(keyCode == 68) {
+            Player.move(3);
+            Painter.drawPlayer();
+        }
     }
 
     render() {
