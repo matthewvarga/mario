@@ -67,13 +67,23 @@ class Painter {
             for(let x = 0; x < tiles[y].length; x++) {
 
                 if(playerVisibleX === centerView) {
-                    // draw tile outline
-                    context.beginPath();
-                    context.fillStyle="#000000";
-                    context.rect(x*w + horizontalOffset, y*h, w, h);
-                    context.stroke();
-                    context.closePath();
 
+                    // buffer col
+                    if(x === tiles[y].length-1) {
+                        console.log("buffer");
+                        context.beginPath()
+                        context.fillStyle="#00CC00";
+                        context.fillRect(x*w + horizontalOffset, y*h, w, h);
+                        context.closePath();
+                    }
+                    else {
+                        // draw tile outline
+                        context.beginPath();
+                        context.fillStyle="#000000";
+                        context.rect(x*w + horizontalOffset, y*h, w, h);
+                        context.stroke();
+                        context.closePath();
+                    }
                     // write tile number inside of it
                     context.beginPath();
                     context.fillStyle="#000000";
@@ -82,13 +92,22 @@ class Painter {
                     context.closePath();
                 }
                 else {
-                    // draw tile outline
-                    context.beginPath();
-                    context.fillStyle="#000000";
-                    context.rect(x*w, y*h, w, h);
-                    context.stroke();
-                    context.closePath();
-
+                    // buffer col
+                    if(x === tiles[y].length-1) {
+                        console.log("buffer");
+                        context.beginPath()
+                        context.fillStyle="#00CC00";
+                        context.fillRect(x*w, y*h, w, h);
+                        context.closePath();
+                    }
+                    else{
+                        // draw tile outline
+                        context.beginPath();
+                        context.fillStyle="#000000";
+                        context.rect(x*w, y*h, w, h);
+                        context.stroke();
+                        context.closePath();
+                    }
                     // write tile number inside of it
                     context.beginPath();
                     context.fillStyle="#000000";
@@ -118,7 +137,7 @@ class Painter {
         // in the center of screen, even number of cols on each side
         if(playerVisibleX === centerView) {
             let startCol = playerCol - 5;
-            let endCol = playerCol + 5;
+            let endCol = playerCol + 5 + numBufferCols;
 
             section = layer.getSection(startCol, endCol, 0, 8);
         }
@@ -128,7 +147,7 @@ class Painter {
         }
         // first tiles
         else {
-            section = layer.getSection(0, 10, 0, 8);
+            section = layer.getSection(0, 10 + numBufferCols, 0, 8);
         }
 
         this.drawTiles(section, -(playerGlobalX%48));
