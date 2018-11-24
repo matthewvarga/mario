@@ -77,7 +77,7 @@ class Player {
     _moveHorizontallyGlobally(distance) {
         let globalX = this.getGlobalX();
         let newX = globalX + distance;
-        let gameMaxWidth = (gameVals.mapWidth-1) * gameVals.tileWidth;
+        let gameMaxWidth = (gameVals.mapWidth - 1) * gameVals.tileWidth;
 
         if(newX <= 0) { 
             this.setGlobalX(0)
