@@ -1,5 +1,6 @@
 import Map from "../map/Map";
 import Player from "../player/Player";
+import gameVals from "../components/scroller/config.json";
 
 class Painter {
 
@@ -49,70 +50,75 @@ class Painter {
     }
 
     /**
-     * Takes the (x,y) coordinates of a tile, and the number of rows / columns to be drawn, 
-     * then centers the tile as closely as possible, and drawns the surrounding.
-     * 
-     * @param {*} layerName - layer that will be drawn
-     * @param {*} tileXCoord - x coordinate of tile being centered / surrounded
-     * @param {*} tileYCoord - y coordinate of tile being centered / surrounded
-     * @param {*} numCols - number of columns being drawn
-     * @param {*} numRows - number of rows being drawn
-     * @param {*} offsetLeft - left offset in which the surrounding is being drawn
-     * @param {*} offsetTop - top offset in which the surrounding is being drawn
+     * draws the tiles provided from the origin on the screen
+     * @param {*} tiles 
      */
-    drawSurroundingTiles(layerName, tileXCoord, tileYCoord, numCols, numRows, offsetLeft, offsetTop) {
+    drawTiles(tiles) {
         let context = this.getcontext();
-        let layer = Map.getLayer(layerName);
-        let w = layer.getTileWidth();
-        let h = layer.getTileHeight();
-        try {
+        let w = gameVals.tileWidth;
+        let h = gameVals.tileHeight;
 
-            let surroundingtiles = layer.getSurroundingTiles(tileXCoord, tileYCoord, numCols, numRows);
+        this.clear();
 
-            this.clear();
+        for(let y = 0; y < tiles.length; y++) {
+            for(let x = 0; x < tiles[y].length; x++) {
 
-            for(let y = 0; y < surroundingtiles.length; y++) {
-                for(let x = 0; x < surroundingtiles[y].length; x++) {
+                // draw tile outline
+                context.beginPath();
+                context.fillStyle="#000000";
+                context.rect(x*w, y*h, w, h);
+                context.stroke();
+                context.closePath();
 
-                    // if drawing center tile
-                    let tile = surroundingtiles[y][x];
-
-                    if(tile.tileInfo == tileXCoord + "," + tileYCoord) {
-                        console.log("x: " + x);
-                        console.log("y: " + y);
-
-                        context.beginPath()
-                        context.fillStyle="red";
-                        context.fillRect(x*w+offsetLeft, y*h+offsetTop, w, h);
-                        context.closePath();
-                    }
-                    else {
-                        // draw tile outline
-                        context.beginPath();
-                        context.fillStyle="#000000";
-                        context.rect(x*w+offsetLeft, y*h+offsetTop, w, h);
-                        context.stroke();
-                        context.closePath();
-                    }
-
-                    // write tile number inside of it
-                    context.beginPath();
-                    context.fillStyle="#000000";
-                    context.font = "12px Arial";
-                    context.fillText(surroundingtiles[y][x].tileInfo, x*48 + 15 + offsetLeft, y*48 + 30 + offsetTop);
-                    context.closePath();
-                }
+                // write tile number inside of it
+                context.beginPath();
+                context.fillStyle="#000000";
+                context.font = "12px Arial";
+                context.fillText(tiles[y][x].tileInfo, x*48 + 15 , y*48 + 30);
+                context.closePath();
             }
-        }
-        catch(InvalidColumnException) {
-            console.log("invalid column exception :(");
         }
     }
 
+    drawVisibleTilesAroundPlayer(layerName) {
+        let layer = Map.getLayer(layerName);
+
+        let playerVisibleX = Player.getVisibleX();
+        let playerGlobalX = Player.getGlobalX();
+
+        let gameMaxWidth = (gameVals.mapWidth-1) * gameVals.tileWidth;
+        let centerView = gameVals.viewWidth / 2;
+
+        let playerCol = Math.floor(playerGlobalX/48);
+
+        let section;
+
+        // in the center of screen, even number of cols on each side
+        if(playerVisibleX === centerView) {
+            let startCol = playerCol - 5;
+            let endCol = playerCol + 5;
+
+            section = layer.getSection(startCol, endCol, 0, 2);
+        }
+        // last tiles
+        else if(playerGlobalX >= (gameMaxWidth - centerView)) {
+            section = layer.getSection(gameVals.mapWidth-10, gameVals.mapWidth, 0, 2);
+        }
+        // first tiles
+        else {
+            section = layer.getSection(0, 10, 0, 2);
+        }
+
+        this.drawTiles(section);
+    }
+
     drawPlayer() {
-        let playerCol = Player.getLeftCol();
-        console.log("player col: " + playerCol);
-        this.drawSurroundingTiles("background", playerCol, playerCol, 5, 5, Player.getOffset(), 0);
+        let context = this.getcontext();
+
+        context.beginPath()
+        context.fillStyle="red";
+        context.fillRect(Player.getVisibleX(), Player.getVisibleY(), gameVals.playerWidth, gameVals.playerHeight);
+        context.closePath();
     }
 }
 

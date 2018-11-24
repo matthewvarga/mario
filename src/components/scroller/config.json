@@ -1,0 +1,11 @@
+{
+    "viewWidth": 512,
+    "viewHeight": 512,
+    "bufferCols": 1,
+    "mapWidth": 32,
+    "mapHeight": 32,
+    "tileWidth": 48,
+    "tileHeight": 48,
+    "playerWidth": 48,
+    "playerHeight": 48
+}

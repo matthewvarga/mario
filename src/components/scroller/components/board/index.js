@@ -5,20 +5,12 @@ import './index.css';
 
 class Board extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() { 
         let canvas = this.refs["canvas-ref"];
         let context = this.refs["canvas-ref"].getContext("2d");
 
         this.props.setCanvas(canvas);
         this.props.setContext(context);
-        console.log("board");
-        console.log(context);
-        console.log("store");
-        console.log(this.props.context);
     }
 
     render() {

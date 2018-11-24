@@ -32,7 +32,7 @@ class Scroller extends Component {
 
     // set context when store gets updated
     componentWillReceiveProps(nextProps) {
-        if((this.state.context != nextProps.context && nextProps.context != null) && (this.state.canvas != nextProps.canvas && nextProps.canvas != null)) {
+        if((this.state.context !== nextProps.context && nextProps.context !== null) && (this.state.canvas !== nextProps.canvas && nextProps.canvas !== null)) {
             this.setState({
                 context: nextProps.context,
                 canvas: nextProps.canvas
@@ -46,14 +46,25 @@ class Scroller extends Component {
         
     }
 
+    draw() {
+        Painter.drawVisibleTilesAroundPlayer("background");
+        Painter.drawPlayer();
+        
+    }
+
     // gets called whenever a key is pressed
     onKeyDown(keyCode) {
         console.log("key: " + keyCode);
 
         // move right
-        if(keyCode == 68) {
-            Player.move(3);
-            Painter.drawPlayer();
+        if(keyCode === 68) {
+            Player.moveHorizontally(10);
+            this.draw();
+        }
+        // move left
+        if(keyCode === 65) {
+            Player.moveHorizontally(-10);
+            this.draw();
         }
     }
 
@@ -62,7 +73,7 @@ class Scroller extends Component {
         if(this.state.context && this.state.canvas) {
             Painter.setContext(this.state.context);
             Painter.setCanvas(this.state.canvas);
-            Painter.drawSurroundingTiles("background", 4, 4, Map.getNumVisibleCols(), Map.getNumVisibleRows(), 12, 12);
+            //Painter.drawVisibleTiles("background", 4, 4, Map.getNumVisibleCols(), Map.getNumVisibleRows(), 12, 12);
         }
 
         return (
