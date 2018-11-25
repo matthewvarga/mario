@@ -1,24 +1,18 @@
-import gameVals from "../components/scroller/config.json";
+import gameConfig from "../config.json";
 
 class Player {
 
     constructor(){
-        // column the player top left corner is on
-        this._x = 96;
-        this._y = 336;
+        this._width = gameConfig.player.width;
+        this._height = gameConfig.player.height;
 
         // coordinate on the screen
-        this._visibleX = 96;
-        this._visibleY = 336;
+        this._visibleX = gameConfig.player.startPosition.x;
+        this._visibleY = gameConfig.player.startPosition.y;
 
         // coordinate on the map
-        this._globalX = 96;
-        this._globalY= 336;
-        
-        this._width = 48;
-        this._height = 48;
-
-        this.speed = 1;
+        this._globalX = gameConfig.player.startPosition.x;
+        this._globalY = gameConfig.player.startPosition.y;
     }
 
     /**
@@ -26,6 +20,13 @@ class Player {
      */
     getWidth() {
         return this._width;
+    }
+
+    /**
+     * returns the width of the player
+     */
+    getHeight() {
+        return this._height;
     }
 
     getVisibleX() {
@@ -77,13 +78,13 @@ class Player {
     _moveHorizontallyGlobally(distance) {
         let globalX = this.getGlobalX();
         let newX = globalX + distance;
-        let gameMaxWidth = (gameVals.mapWidth - 1) * gameVals.tileWidth;
+        let mapMaxWidth = (gameConfig.map.numCols - 1) * gameConfig.map.tiles.width;
 
         if(newX <= 0) { 
             this.setGlobalX(0)
         }
-        else if(newX >= (gameMaxWidth - this.getWidth())) {
-            this.setGlobalX(gameMaxWidth - this.getWidth());
+        else if(newX >= (mapMaxWidth - this.getWidth())) {
+            this.setGlobalX(mapMaxWidth - this.getWidth());
         }
         else {
             this.setGlobalX(newX);
@@ -95,15 +96,15 @@ class Player {
      */
     _moveHorizontallyVisibily() {
         let globalX = this.getGlobalX();
-        let gameMaxWidth = (gameVals.mapWidth-1) * gameVals.tileWidth;
-        let centerView = gameVals.viewWidth / 2;
+        let mapMaxWidth = (gameConfig.map.numCols - 1) * gameConfig.map.tiles.width;
+        let centerView = gameConfig.screen.viewWidth / 2;
 
         if(globalX <= centerView) {
             this.setVisibleX(globalX);
         }
-        else if(globalX >= (gameMaxWidth - centerView)) {
-            let distanceFromEndOfScreen = gameMaxWidth - globalX;
-            let visibleX = gameVals.viewWidth - distanceFromEndOfScreen;
+        else if(globalX >= (mapMaxWidth - centerView)) {
+            let distanceFromEndOfScreen = mapMaxWidth - globalX;
+            let visibleX = gameConfig.screen.viewWidth - distanceFromEndOfScreen;
             this.setVisibleX(visibleX);
         }
         else {

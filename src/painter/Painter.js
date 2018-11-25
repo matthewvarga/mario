@@ -1,6 +1,6 @@
 import Map from "../map/Map";
 import Player from "../player/Player";
-import gameVals from "../components/scroller/config.json";
+import gameConfig from "../config.json";
 
 class Painter {
 
@@ -8,6 +8,16 @@ class Painter {
         // stores the canvas context
         this._context = null;
         this._canvas = null;
+
+        this._spriteSheet = null;
+    }
+
+    getSpriteSheet() {
+        return this._spriteSheet;
+    }
+
+    setSpriteSheet(spritesheet) {
+        this._spriteSheet = spritesheet;
     }
 
     /**
@@ -55,64 +65,37 @@ class Painter {
      */
     drawTiles(tiles, horizontalOffset) {
         let context = this.getcontext();
-        let w = gameVals.tileWidth;
-        let h = gameVals.tileHeight;
+        let tileWidth = gameConfig.map.tiles.width;
+        let tileHeight = gameConfig.map.tiles.height;
+        let spriteWidth = gameConfig.spriteSheet.sprites.width;
+        let spriteHeight = gameConfig.spriteSheet.sprites.height;
+        let numSpritesheetCols = gameConfig.spriteSheet.numCols;
 
         let playerVisibleX = Player.getVisibleX();
-        let centerView = gameVals.viewWidth / 2;
+        let centerView = gameConfig.screen.viewWidth / 2;
 
         this.clear();
 
         for(let y = 0; y < tiles.length; y++) {
             for(let x = 0; x < tiles[y].length; x++) {
 
-                if(playerVisibleX === centerView) {
+                let sprite = tiles[y][x].sprite;
+                    
+                // the sprites top left y coord on spritesheet
+                let spriteY = Math.floor(sprite/numSpritesheetCols) * spriteHeight;
+                // the sprites top left x coord on spritesheet
+                let spriteX = ((sprite % numSpritesheetCols) -1 )* spriteWidth;
 
-                    // buffer col
-                    if(x === tiles[y].length-1) {
-                        console.log("buffer");
-                        context.beginPath()
-                        context.fillStyle="#00CC00";
-                        context.fillRect(x*w + horizontalOffset, y*h, w, h);
-                        context.closePath();
-                    }
-                    else {
-                        // draw tile outline
-                        context.beginPath();
-                        context.fillStyle="#000000";
-                        context.rect(x*w + horizontalOffset, y*h, w, h);
-                        context.stroke();
-                        context.closePath();
-                    }
-                    // write tile number inside of it
+
+                if(playerVisibleX === centerView) {
                     context.beginPath();
-                    context.fillStyle="#000000";
-                    context.font = "12px Arial";
-                    context.fillText(tiles[y][x].tileInfo, x*48 + 15 +horizontalOffset, y*48 + 30);
+                    context.drawImage(this.getSpriteSheet(), spriteX, spriteY, spriteWidth, spriteHeight, x*tileWidth + horizontalOffset, y*tileHeight, tileWidth, tileHeight);
                     context.closePath();
+
                 }
                 else {
-                    // buffer col
-                    if(x === tiles[y].length-1) {
-                        console.log("buffer");
-                        context.beginPath()
-                        context.fillStyle="#00CC00";
-                        context.fillRect(x*w, y*h, w, h);
-                        context.closePath();
-                    }
-                    else{
-                        // draw tile outline
-                        context.beginPath();
-                        context.fillStyle="#000000";
-                        context.rect(x*w, y*h, w, h);
-                        context.stroke();
-                        context.closePath();
-                    }
-                    // write tile number inside of it
                     context.beginPath();
-                    context.fillStyle="#000000";
-                    context.font = "12px Arial";
-                    context.fillText(tiles[y][x].tileInfo, x*48 + 15, y*48 + 30);
+                    context.drawImage(this.getSpriteSheet(), spriteX, spriteY, spriteWidth, spriteHeight, x*tileWidth, y*tileHeight, tileWidth, tileHeight);
                     context.closePath();
                 }
             }
@@ -125,29 +108,30 @@ class Painter {
         let playerVisibleX = Player.getVisibleX();
         let playerGlobalX = Player.getGlobalX();
 
-        let gameMaxWidth = (gameVals.mapWidth-1) * gameVals.tileWidth;
-        let centerView = gameVals.viewWidth / 2;
+        let mapMaxWidth = (Map.getNumCols() - 1) * gameConfig.map.tiles.width;
+        let centerView = gameConfig.screen.viewWidth / 2;
 
         let playerCol = Math.floor(playerGlobalX/48);
 
         let section;
 
-        let numBufferCols = gameVals.bufferCols;
+        let numBufferCols = gameConfig.screen.bufferCols;
         
         // in the center of screen, even number of cols on each side
         if(playerVisibleX === centerView) {
-            let startCol = playerCol - 5;
-            let endCol = playerCol + 5 + numBufferCols;
+            let startCol = playerCol - Math.floor(Map.getNumVisibleCols()/2);
+            let endCol = playerCol + Math.floor(Map.getNumVisibleCols()/2) + numBufferCols;
 
-            section = layer.getSection(startCol, endCol, 0, 8);
+            section = layer.getSection(startCol, endCol, 0, Map.getNumVisibleRows());
         }
         // last tiles
-        else if(playerGlobalX >= (gameMaxWidth - centerView)) {
-            section = layer.getSection(gameVals.mapWidth-10, gameVals.mapWidth, 0, 8);
+        else if(playerGlobalX >= (mapMaxWidth - centerView)) {
+            // - buffer cols is a hacky fix to prevent jumping a column
+            section = layer.getSection(Map.getNumRows() - Map.getNumVisibleCols() - numBufferCols, Map.getNumRows(), 0, Map.getNumVisibleRows());
         }
         // first tiles
         else {
-            section = layer.getSection(0, 10 + numBufferCols, 0, 8);
+            section = layer.getSection(0, Map.getNumVisibleCols() + numBufferCols, 0, Map.getNumVisibleRows());
         }
 
         this.drawTiles(section, -(playerGlobalX%48));
@@ -158,7 +142,7 @@ class Painter {
 
         context.beginPath()
         context.fillStyle="red";
-        context.fillRect(Player.getVisibleX(), Player.getVisibleY(), gameVals.playerWidth, gameVals.playerHeight);
+        context.fillRect(Player.getVisibleX(), Player.getVisibleY(), Player.getWidth(), Player.getHeight());
         context.closePath();
     }
 }

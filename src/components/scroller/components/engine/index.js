@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
+import Painter from "../../../../painter/Painter";
+import sprites from "../../../../sprites.png";
 
 class Engine extends Component {
 
     constructor(props) {
         super(props);
 
+        
         this.tick();
+        
     }
 
+    loadSpriteSheet() {
+        let image = new Image();
+        image.onload = function() {
+            Painter.setSpriteSheet(image);
+        }
+        image.src=sprites;
+    }
     
     componentDidMount() {
         // add event listener for key presses, and emit to listener methods the keycode
@@ -15,6 +26,7 @@ class Engine extends Component {
         document.addEventListener('keydown', (e) => {
             this.props.onKeyDown((e.keyCode));
         });
+        this.loadSpriteSheet();
     }
 
     // emit to listener methods that a tick has occured

@@ -1,0 +1,33 @@
+{
+    "screen": {
+        "viewWidth": 768,
+        "viewHeight": 576,
+        "bufferCols": 1
+    },
+    "map": {
+        "numCols": 32,
+        "numRows": 32,
+        "numVisibleCols": 16,
+        "numVisibleRows": 12,
+        "tiles": {
+            "width": 48,
+            "height": 48
+        }
+    },
+   "player": {
+       "width": 48,
+       "height": 48,
+       "startPosition": {
+           "x": 96,
+           "y": 480
+       }
+   },
+   "spriteSheet": {
+       "numCols": 32,
+       "numRows": 28,
+        "sprites": {
+            "width": 48,
+            "height": 48
+        }
+   }
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {setContext, setCanvas} from "../../../../actions/index";
+import GameConfig from "../../../../config.json";
 import './index.css';
 
 class Board extends Component {
@@ -14,7 +15,7 @@ class Board extends Component {
     }
 
     render() {
-        return <canvas ref={"canvas-ref"} className={"canvas"} width={"512"} height={"512"} style={{border:"1px solid #d3d3d3"}}></canvas>
+        return <canvas ref={"canvas-ref"} className={"canvas"} width={GameConfig.screen.viewWidth} height={GameConfig.screen.viewHeight} style={{border:"1px solid #d3d3d3"}}></canvas>
     }
 }
 

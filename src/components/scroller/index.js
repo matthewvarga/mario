@@ -5,7 +5,7 @@ import Board from "./components/board/index";
 import Map from "../../map/Map";
 import Layer from "../../layer/Layer";
 import Painter from "../../painter/Painter";
-import testMap from "./testMap.json";
+import gameMap from "./map.json";
 import Player from "../../player/Player";
 import './index.css';
 
@@ -18,7 +18,7 @@ class Scroller extends Component {
             canvas: null
         }
 
-        let backgroundLayer = new Layer(testMap.map.tiles, testMap.map.tileWidth, testMap.map.tileHeight);
+        let backgroundLayer = new Layer(gameMap.tiles, 48, 48);
         //console.log("context: " + this.context);
         Map.setLayer("background", backgroundLayer);
         console.log("CONSTRUCTOR");

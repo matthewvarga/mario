@@ -1,12 +1,26 @@
+import gameConfig from "../config.json";
+
 class Map {
 
     constructor(){
         // stores all of the maps layers
         this._layers = {};
 
-        // number of visible rows and columns, default: 3.
-        this._visibleRows = 11;
-        this._visibleCols = 11;
+        // the number of columns and rows of the entire map
+        this._numCols = gameConfig.map.numCols;
+        this._numRows = gameConfig.map.numRows;
+
+        // the number of visible columns and rows
+        this._visibleRows = gameConfig.map.numVisibleRows;
+        this._visibleCols = gameConfig.map.numVisibleCols;
+    }
+
+    getNumCols() {
+        return this._numCols;
+    }
+
+    getNumRows() {
+        return this._numRows;
     }
 
     /**
@@ -24,22 +38,6 @@ class Map {
      */
     getLayer(layerName) {
         return this._layers[layerName];
-    }
-
-    /**
-     * Sets the number of rows visible to the value passed in.
-     * @param {Integer} numRows 
-     */
-    setNumVisibleRows(numRows) {
-        this._visibleRows = numRows;
-    }
-
-    /**
-     * Sets the number of Columns visible to the value passed in.
-     * @param {Integer} numCols 
-     */
-    setNumVisibleCols(numCols) {
-        this._visibleCols = numCols;
     }
 
     /**
