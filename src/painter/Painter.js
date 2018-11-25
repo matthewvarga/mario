@@ -102,6 +102,57 @@ class Painter {
         }
     }
 
+    _getSurroundingTilesForCollision() {
+        let globalX = Player.getGlobalX();
+        let horizontalOffset = globalX%Player.getWidth();
+        let globalY = Player.getGlobalY();
+
+        let playerCol = Math.floor(globalX / Player.getWidth());
+        let playerRow = Math.floor(globalY / Player.getHeight());
+
+        let layer = Map.getLayer("background");
+        console.log("playerCol: " + playerCol);
+
+        let section;
+
+        // first col
+        if(playerCol == 0){
+            section = layer.getSection(playerCol, playerCol+2, playerRow-1, playerRow+2);
+        console.log(section);
+        }
+        // last col
+        else if(playerCol == (gameConfig.map.numCols -2)) {
+            section = layer.getSection(playerCol-1, playerCol+1, playerRow-1, playerRow+2)
+        }
+        else {
+            section = layer.getSection(playerCol-1, playerCol+2, playerRow-1, playerRow+2);
+        }
+        
+        console.log(section);
+        this.drawTilesTest(section, horizontalOffset);
+    }
+
+    drawTilesTest(tiles, horizontalOffset) {
+        let context = this.getcontext();
+        let tileWidth = gameConfig.map.tiles.width;
+        let tileHeight = gameConfig.map.tiles.height;
+
+        let playerVisibleX = Player.getVisibleX();
+        let centerView = gameConfig.screen.viewWidth / 2;
+
+        //this.clear();
+
+        for(let y = 0; y < tiles.length; y++) {
+            for(let x = 0; x < tiles[y].length; x++) {
+
+                context.beginPath();
+                context.fillStyle = "#00CC00";
+                context.fillRect(Player.getVisibleX() + x*tileWidth -48, Player.getVisibleY() + y*tileHeight - 48, tileWidth, tileHeight);
+                context.closePath();
+            }
+        }
+    }
+
     drawVisibleTilesAroundPlayer(layerName) {
         let layer = Map.getLayer(layerName);
 
@@ -116,7 +167,7 @@ class Painter {
         let section;
 
         let numBufferCols = gameConfig.screen.bufferCols;
-        
+
         // in the center of screen, even number of cols on each side
         if(playerVisibleX === centerView) {
             let startCol = playerCol - Math.floor(Map.getNumVisibleCols()/2);
@@ -126,8 +177,7 @@ class Painter {
         }
         // last tiles
         else if(playerGlobalX >= (mapMaxWidth - centerView)) {
-            // - buffer cols is a hacky fix to prevent jumping a column
-            section = layer.getSection(Map.getNumRows() - Map.getNumVisibleCols() - numBufferCols, Map.getNumRows(), 0, Map.getNumVisibleRows());
+            section = layer.getSection(Map.getNumCols() - Map.getNumVisibleCols() , Map.getNumRows(), 0, Map.getNumVisibleRows());
         }
         // first tiles
         else {

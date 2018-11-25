@@ -48,8 +48,8 @@ class Scroller extends Component {
 
     draw() {
         Painter.drawVisibleTilesAroundPlayer("background");
+        Painter._getSurroundingTilesForCollision();
         Painter.drawPlayer();
-        
     }
 
     // gets called whenever a key is pressed
