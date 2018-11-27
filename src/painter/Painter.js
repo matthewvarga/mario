@@ -65,8 +65,6 @@ class Painter {
      */
     drawTiles(tiles, horizontalOffset) {
         let context = this.getcontext();
-        let tileWidth = gameConfig.map.tiles.width;
-        let tileHeight = gameConfig.map.tiles.height;
         let spriteWidth = gameConfig.spriteSheet.sprites.width;
         let spriteHeight = gameConfig.spriteSheet.sprites.height;
         let numSpritesheetCols = gameConfig.spriteSheet.numCols;
@@ -78,8 +76,8 @@ class Painter {
 
         for(let y = 0; y < tiles.length; y++) {
             for(let x = 0; x < tiles[y].length; x++) {
-
-                let sprite = tiles[y][x].sprite;
+                let tile = tiles[y][x];
+                let sprite = tiles[y][x].getSprite();
                     
                 // the sprites top left y coord on spritesheet
                 let spriteY = Math.floor(sprite/numSpritesheetCols) * spriteHeight;
@@ -89,13 +87,13 @@ class Painter {
 
                 if(playerVisibleX === centerView) {
                     context.beginPath();
-                    context.drawImage(this.getSpriteSheet(), spriteX, spriteY, spriteWidth, spriteHeight, x*tileWidth + horizontalOffset, y*tileHeight, tileWidth, tileHeight);
+                    context.drawImage(this.getSpriteSheet(), spriteX, spriteY, spriteWidth, spriteHeight, x*tile.getWidth() + horizontalOffset, y*tile.getHeight(), tile.getWidth(), tile.getHeight());
                     context.closePath();
 
                 }
                 else {
                     context.beginPath();
-                    context.drawImage(this.getSpriteSheet(), spriteX, spriteY, spriteWidth, spriteHeight, x*tileWidth, y*tileHeight, tileWidth, tileHeight);
+                    context.drawImage(this.getSpriteSheet(), spriteX, spriteY, spriteWidth, spriteHeight, x*tile.getWidth(), y*tile.getHeight(), tile.getWidth(), tile.getHeight());
                     context.closePath();
                 }
             }

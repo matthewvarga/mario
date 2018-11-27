@@ -1,6 +1,7 @@
 import gameConfig from "../config.json";
 import Map from "../map/Map";
-import Painter from "../painter/Painter";
+import getSurroundingTiles from "../utils/getSurroundingTiles";
+import collides2 from "../utils/collisionDetection/collides2";
 
 class Player {
 
@@ -63,62 +64,6 @@ class Player {
         this._globalY = y;
     }
 
-    _getSurroundingTilesForCollision(x, y) {
-        let playerCol = Math.floor(x / this.getWidth());
-        let playerRow = Math.floor(y / this.getHeight());
-
-        let layer = Map.getLayer("background");
-
-        let section;
-
-        // player on first col
-        if(playerCol == 0){
-            section = layer.getSection(playerCol, playerCol+2, playerRow-1, playerRow+2);
-        }
-        // player on last col
-        else if(playerCol == (gameConfig.map.numCols -2)) {
-            section = layer.getSection(playerCol-1, playerCol+1, playerRow-1, playerRow+2)
-        }
-        // player somewhere in between
-        else {
-            section = layer.getSection(playerCol-1, playerCol+2, playerRow-1, playerRow+2);
-        }
-        return section;
-    }
-
-    // https://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other
-    _collsionWithSurroundingTiles(surroundingTiles, xCoord, yCoord) {
-
-        let collision = false;
-        //console.log("ax1: " + xCoord);
-        for(let y = 0; y < surroundingTiles.length; y++) {
-            for(let x = 0; x < surroundingTiles[y].length; x++) {
-                
-
-                if(surroundingTiles[y][x].type == "SOLID") {
-                    let ax1 = xCoord;
-                    let bx2 = surroundingTiles[y][x].col * 48;
-                    let ax2 = ax1 + 48;
-                    let bx1 = bx2 - 48;
-                    let ay1 = yCoord;
-                    let by2 = surroundingTiles[y][x].row * 48;
-                    let ay2 = ay1 + 48;
-                    let by1 = by2 - 48;
-                    
-                    collision = ((ax1 < bx2) && (ax2 > bx1) && (ay1 < by2) && (ay2 > by1));
-                    if(collision) {
-                        console.log("collision");
-                        return true
-                    }
-                }
-                
-            }
-        }
-
-        return collision;
-    }
-
-
     /**
      * moves the player either left or right distance
      * if distance is negative, moves left, o/w moves right
@@ -138,25 +83,32 @@ class Player {
         let newX = globalX + distance;
         let mapMaxWidth = (gameConfig.map.numCols - 1) * gameConfig.map.tiles.width;
 
-        let surTiles;
+        let surroundingTiles;
+
+        let playerObj = {
+            x: null,
+            y: this.getGlobalY(),
+            w: this.getWidth(),
+            h: this.getHeight()
+        };
+
+        let playerRadius = gameConfig.player.collisionDetectionRadius;
+
+        let layer = Map.getLayer("background");
 
         if(newX <= 0) { 
-            surTiles = this._getSurroundingTilesForCollision(0, this.getGlobalY());
-            if(!this._collsionWithSurroundingTiles(surTiles, 0, this.getGlobalY())) {
-                this.setGlobalX(0);
-            }
+            playerObj.x = 0;
         }
         else if(newX >= mapMaxWidth) {
-            surTiles = this._getSurroundingTilesForCollision(mapMaxWidth, this.getGlobalY());
-            if(!this._collsionWithSurroundingTiles(surTiles, mapMaxWidth, this.getGlobalY())) {
-                this.setGlobalX(mapMaxWidth);
-            }
+            playerObj.x = mapMaxWidth;
         }
         else {
-            surTiles = this._getSurroundingTilesForCollision(newX, this.getGlobalY());
-            if(!this._collsionWithSurroundingTiles(surTiles, newX, this.getGlobalY())) {
-                this.setGlobalX(newX);
-            }
+            playerObj.x = newX;
+        }
+
+        surroundingTiles = getSurroundingTiles(playerObj, playerRadius, layer);
+        if(!collides2(playerObj,surroundingTiles)) {
+            this.setGlobalX(playerObj.x);
         }
     }
 

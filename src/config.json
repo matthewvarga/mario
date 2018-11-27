@@ -17,6 +17,7 @@
    "player": {
        "width": 48,
        "height": 48,
+       "collisionDetectionRadius": 1,
        "startPosition": {
            "x": 96,
            "y": 480

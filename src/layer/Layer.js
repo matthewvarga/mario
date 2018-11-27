@@ -1,3 +1,5 @@
+import Tile from "../tile/Tile";
+
 export default class Layer {
 
     constructor(tiles, tileWidth, tileHeight){
@@ -9,6 +11,13 @@ export default class Layer {
         //  [col, ... , col]] <- row
         // nested array of tiles.
         this._tiles = tiles || [[]];
+
+        for(let y = 0; y < this._tiles.length; y++) {
+            for(let x = 0; x < this._tiles[y].length; x++) {
+                let tile = this._tiles[y][x];
+                this._tiles[y][x] = new Tile(tile);
+            }
+        }
     }
 
     /**
@@ -28,11 +37,11 @@ export default class Layer {
 
     /**
      * returns the (x,y) tile.
-     * @param {Integer} x - row number of tile being retrieved.
-     * @param {Integer} y - column number of tile being retrieved.
+     * @param {Integer} col - row number of tile being retrieved.
+     * @param {Integer} row - column number of tile being retrieved.
      */
-    getTile(x, y) {
-        return this._tiles[y][x];
+    getTile(col, row) {
+        return this._tiles[row][col];
     }
 
     /**
