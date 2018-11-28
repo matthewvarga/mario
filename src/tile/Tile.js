@@ -1,4 +1,4 @@
-import GameConfig from "../config.json";
+import gameConfig from "../resources/config.json";
 
 export default class Tile {
 
@@ -13,12 +13,12 @@ export default class Tile {
      * @param {Object} tile 
      */
     constructor(tile){
-        this._x = tile.col * GameConfig.map.tiles.width - GameConfig.map.tiles.width;
-        this._y = tile.row * GameConfig.map.tiles.width - GameConfig.map.tiles.height;
+        this._x = tile.col * gameConfig.map.tiles.width - gameConfig.map.tiles.width;
+        this._y = tile.row * gameConfig.map.tiles.width - gameConfig.map.tiles.height;
         this._c = tile.col;
         this._r = tile.row;
-        this._w = GameConfig.map.tiles.width;
-        this._h = GameConfig.map.tiles.height;
+        this._w = gameConfig.map.tiles.width;
+        this._h = gameConfig.map.tiles.height;
         this._sprite = tile.sprite;
         this._type = tile.type;
     }

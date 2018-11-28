@@ -1,4 +1,4 @@
-import gameConfig from "../config.json";
+import gameConfig from "../resources/config.json";
 
 class Map {
 

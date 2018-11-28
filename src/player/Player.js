@@ -1,4 +1,4 @@
-import gameConfig from "../config.json";
+import gameConfig from "../resources/config.json";
 import Map from "../map/Map";
 import getSurroundingTiles from "../utils/getSurroundingTiles";
 import collides2 from "../utils/collisionDetection/collides2";
@@ -116,8 +116,8 @@ class Player {
         }
 
         surroundingTiles = getSurroundingTiles(playerObj, playerRadius, layer);
-        
-        let collisionTile = collides2(playerObj,surroundingTiles);
+
+        let collisionTile = collides2(playerObj, surroundingTiles);
         // if there are no collisions with the player and the intended movement, then upda
         if(!collisionTile) {
             this.setGlobalY(playerObj.y);
@@ -125,7 +125,7 @@ class Player {
         // collision
         else {
             // align the player on proper side of block depending on their direction
-            (distance < 0) ? this.setGlobalY(collisionTile.getY() + this.getHeight()): this.setGlobalY(collisionTile.getY() - this.getHeight());
+            (distance < 0) ? this.setGlobalY(collisionTile.getY() + collisionTile.getHeight()): this.setGlobalY(collisionTile.getY() - this.getHeight());
         }
     }
 

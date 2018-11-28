@@ -5,7 +5,7 @@ import Board from "./components/board/index";
 import Map from "../../map/Map";
 import Layer from "../../layer/Layer";
 import Painter from "../../painter/Painter";
-import gameMap from "./map.json";
+import gameMap from "../../resources/map.json";
 import Player from "../../player/Player";
 import './index.css';
 

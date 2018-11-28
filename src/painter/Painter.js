@@ -1,6 +1,6 @@
 import Map from "../map/Map";
 import Player from "../player/Player";
-import gameConfig from "../config.json";
+import gameConfig from "../resources/config.json";
 
 class Painter {
 
@@ -130,7 +130,7 @@ class Painter {
         else {
             section = layer.getSection(0, Map.getNumVisibleCols() + numBufferCols, 0, Map.getNumVisibleRows());
         }
-        
+
         this.drawTiles(section, -(playerGlobalX%48));
     }
 

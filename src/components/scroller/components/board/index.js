@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {setContext, setCanvas} from "../../../../actions/index";
-import GameConfig from "../../../../config.json";
+import GameConfig from "../../../../resources/config.json";
 import './index.css';
 
 class Board extends Component {
