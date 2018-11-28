@@ -48,8 +48,11 @@ class Scroller extends Component {
 
     draw() {
         Painter.drawVisibleTilesAroundPlayer("background");
-        Painter._getSurroundingTilesForCollision();
         Painter.drawPlayer();
+        console.log("Player Global x: " + Player.getGlobalX());
+        console.log("Player Global y: " + Player.getGlobalY());
+        console.log("Player Visible x: " + Player.getVisibleX());
+        console.log("Player Visible y: " + Player.getVisibleY());
     }
 
     // gets called whenever a key is pressed
@@ -64,6 +67,16 @@ class Scroller extends Component {
         // move left
         if(keyCode === 65) {
             Player.moveHorizontally(-10);
+            this.draw();
+        }
+        // move up
+        if(keyCode === 87) {
+            Player.moveVertically(-10);
+            this.draw();
+        }
+        // move down
+        if(keyCode === 83) {
+            Player.moveVertically(10);
             this.draw();
         }
     }

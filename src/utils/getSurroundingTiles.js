@@ -28,7 +28,7 @@ export default function getSurroundingTiles(obj, radius, layer) {
         endCol = col + radius + 1;
     }
     // objs is in last col
-    else if(col == (gameConfig.map.numCols - (radius + 1))) {
+    else if(col === (gameConfig.map.numCols - (radius + 1))) {
         startCol = col - radius;
         endCol = col + 1;
     }
@@ -36,8 +36,6 @@ export default function getSurroundingTiles(obj, radius, layer) {
     else {
         startCol = col - radius;
         endCol = col + radius + 1;
-        console.log("startCol: " + startCol);
-        console.log("endCol: " + endCol);
     }
 
     // if obj is in first row
@@ -46,7 +44,7 @@ export default function getSurroundingTiles(obj, radius, layer) {
         endRow = row + radius + 1;
     }
     // if obj is in last row
-    else if(row == (gameConfig.map.numRows - (radius +1))) {
+    else if(row === (gameConfig.map.numRows - radius)) {
         startRow = row - radius;
         endRow = row + 1;
     }
@@ -54,6 +52,8 @@ export default function getSurroundingTiles(obj, radius, layer) {
     else {
         startRow = row - radius;
         endRow = row + radius + 1;
+        console.log("startRow: " + startRow);
+        console.log("endRow: " + endRow);
     }
 
     section = layer.getSection(startCol, endCol, startRow, endRow);

@@ -1,5 +1,5 @@
 export default class InvalidInputException extends Error {
-    constructor(...args) {
-        super(...args);
-    }
+    // constructor(...args) {
+    //     super(...args);
+    // }
 }

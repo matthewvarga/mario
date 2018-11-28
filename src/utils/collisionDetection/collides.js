@@ -6,7 +6,7 @@ import InvalidInputException from "../../errors/InvalidInputException";
  * @param {anything} obj 
  */
 function _isInvalid(obj) {
-    return(obj == null || obj == undefined);
+    return(obj === null || obj === undefined);
 }
 
 

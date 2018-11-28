@@ -600,7 +600,8 @@
             {
                 "col": 23,
                 "row": 4,
-                "sprite": 25
+                "sprite": 25,
+                "type": "SOLID"
             },
             {
                 "col": 24,
@@ -1218,7 +1219,8 @@
             {
                 "col": 17,
                 "row": 8,
-                "sprite": 25
+                "sprite": 25,
+                "type": "SOLID"
             },
             {
                 "col": 18,
@@ -1238,27 +1240,32 @@
             {
                 "col": 21,
                 "row": 8,
-                "sprite": 2
+                "sprite": 2,
+                "type": "SOLID"
             },
             {
                 "col": 22,
                 "row": 8,
-                "sprite": 25
+                "sprite": 25,
+                "type": "SOLID"
             },
             {
                 "col": 23,
                 "row": 8,
-                "sprite": 2
+                "sprite": 2,
+                "type": "SOLID"
             },
             {
                 "col": 24,
                 "row": 8,
-                "sprite": 25
+                "sprite": 25,
+                "type": "SOLID"
             },
             {
                 "col": 25,
                 "row": 8,
-                "sprite": 2
+                "sprite": 2,
+                "type": "SOLID"
             },
             {
                 "col": 26,
@@ -1790,162 +1797,194 @@
             {
                 "col": 1,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 2,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 3,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 4,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 5,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 6,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 7,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 8,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 9,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 10,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 11,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 12,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 13,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 14,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 15,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 16,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 17,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 18,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 19,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 20,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 21,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 22,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 23,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 24,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 25,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 26,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 27,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 28,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 29,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 30,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 31,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             },
             {
                 "col": 32,
                 "row": 12,
-                "sprite": 1
+                "sprite": 1,
+                "type": "SOLID"
             }
         ]
     ]

@@ -6,7 +6,7 @@
     },
     "map": {
         "numCols": 32,
-        "numRows": 32,
+        "numRows": 12,
         "numVisibleCols": 16,
         "numVisibleRows": 12,
         "tiles": {

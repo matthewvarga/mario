@@ -16,6 +16,9 @@ class Player {
         // coordinate on the map
         this._globalX = gameConfig.player.startPosition.x;
         this._globalY = gameConfig.player.startPosition.y;
+
+        // collision detection radius
+        this._collisionDetectionRadius = gameConfig.player.collisionDetectionRadius;
     }
 
     /**
@@ -44,7 +47,7 @@ class Player {
         return this._visibleY;
     }
 
-    setvisibleY(y) {
+    setVisibleY(y) {
         this._visibleY = y;
     }
 
@@ -64,6 +67,10 @@ class Player {
         this._globalY = y;
     }
 
+    getCollisionDetectionRadius() {
+        return this._collisionDetectionRadius;
+    }
+
     /**
      * moves the player either left or right distance
      * if distance is negative, moves left, o/w moves right
@@ -74,6 +81,79 @@ class Player {
         this._moveHorizontallyVisibily();
     } 
 
+    moveVertically(distance) {
+        this._moveVerticallyGlobally(distance);
+        this._moveVerticallyVisibly();
+    }
+
+    /**
+     * private method, sets the global y position of the player
+     * @param {Integer} distance - the distance the player is moving vertically 
+     */
+    _moveVerticallyGlobally(distance) {
+        let globalY = this.getGlobalY();
+        let newY = globalY + distance;
+        let mapMaxHeight = (gameConfig.map.numRows -1) * gameConfig.map.tiles.height;
+        let playerRadius = this.getCollisionDetectionRadius();
+        let layer = Map.getLayer("background");
+        let surroundingTiles;
+        let playerObj = {
+            x: this.getGlobalX(),
+            y: null,
+            w: this.getWidth(),
+            h: this.getHeight()
+        };
+
+        if(newY <= 0) { 
+            playerObj.y = 0;
+        }
+        // todo, update for when falling off map possibly
+        else if(newY >= mapMaxHeight) {
+            playerObj.y = mapMaxHeight;
+        }
+        else {
+            playerObj.y = newY;
+        }
+
+        surroundingTiles = getSurroundingTiles(playerObj, playerRadius, layer);
+        
+        let collisionTile = collides2(playerObj,surroundingTiles);
+        // if there are no collisions with the player and the intended movement, then upda
+        if(!collisionTile) {
+            this.setGlobalY(playerObj.y);
+        } 
+        // collision
+        else {
+            // align the player on proper side of block depending on their direction
+            (distance < 0) ? this.setGlobalY(collisionTile.getY() + this.getHeight()): this.setGlobalY(collisionTile.getY() - this.getHeight());
+        }
+    }
+
+    _moveVerticallyVisibly() {
+        let globalY = this.getGlobalY();
+        let mapMaxHeight = (gameConfig.map.numRows) * gameConfig.map.tiles.height;
+        let centerView = gameConfig.screen.viewHeight / 2;
+
+        console.log("Global y: " + globalY);
+        console.log("CenterView: " + centerView);
+        console.log("map max height: " + mapMaxHeight);
+
+        // player is above half of screen
+        if(globalY <= centerView) {
+            this.setVisibleY(globalY);
+        }
+        // player is below half of screen
+        else if(globalY >= (mapMaxHeight - centerView)) {
+            let distanceFromBottomOfScreen = mapMaxHeight - globalY;
+            let visibleY = gameConfig.screen.viewHeight - distanceFromBottomOfScreen;
+            this.setVisibleY(visibleY);
+        }
+        // player is centered vertically in screen
+        else {
+            this.setVisibleY(centerView);
+        }
+    }
+
     /**
      * private method, that sets the global x value of the player.
      * @param {Integer} distance - distance player is trying to move
@@ -82,19 +162,15 @@ class Player {
         let globalX = this.getGlobalX();
         let newX = globalX + distance;
         let mapMaxWidth = (gameConfig.map.numCols - 1) * gameConfig.map.tiles.width;
-
+        let playerRadius = this.getCollisionDetectionRadius();
+        let layer = Map.getLayer("background");
         let surroundingTiles;
-
         let playerObj = {
             x: null,
             y: this.getGlobalY(),
             w: this.getWidth(),
             h: this.getHeight()
         };
-
-        let playerRadius = gameConfig.player.collisionDetectionRadius;
-
-        let layer = Map.getLayer("background");
 
         if(newX <= 0) { 
             playerObj.x = 0;
@@ -107,8 +183,16 @@ class Player {
         }
 
         surroundingTiles = getSurroundingTiles(playerObj, playerRadius, layer);
-        if(!collides2(playerObj,surroundingTiles)) {
+
+        let collisionTile = collides2(playerObj,surroundingTiles);
+        // if there are no collisions with the player and the intended movement, then upda
+        if(!collisionTile) {
             this.setGlobalX(playerObj.x);
+        } 
+        // collision
+        else {
+            // align the player on proper side of block depending on their direction
+            (distance < 0) ? this.setGlobalX(collisionTile.getX() + this.getWidth()): this.setGlobalX(collisionTile.getX() - this.getWidth());
         }
     }
 
@@ -120,14 +204,17 @@ class Player {
         let mapMaxWidth = (gameConfig.map.numCols) * gameConfig.map.tiles.width;
         let centerView = gameConfig.screen.viewWidth / 2;
 
+        // start of map, player may not be in center of screen
         if(globalX <= centerView) {
             this.setVisibleX(globalX);
         }
+        // end of map, player may be past center of screen
         else if(globalX >= (mapMaxWidth - centerView)) {
             let distanceFromEndOfScreen = mapMaxWidth - globalX;
             let visibleX = gameConfig.screen.viewWidth - distanceFromEndOfScreen;
             this.setVisibleX(visibleX);
         }
+        // player is centered in screen
         else {
             this.setVisibleX(centerView);
         }
