@@ -21,7 +21,10 @@
        "startPosition": {
            "x": 96,
            "y": 432
-       }
+       },
+       "velocityX": 4,
+       "velocityY": 0,
+       "gravity": 0.1
    },
    "spriteSheet": {
        "numCols": 32,

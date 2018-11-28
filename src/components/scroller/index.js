@@ -6,7 +6,9 @@ import Map from "../../map/Map";
 import Layer from "../../layer/Layer";
 import Painter from "../../painter/Painter";
 import gameMap from "../../resources/map.json";
-import Player from "../../player/Player";
+import updatePlayerMovement from "../../player/updatePlayerMovement";
+import updatePlayerMovement2 from "../../player/updatePlayerMovement2";
+import updatePlayerPosition from "../../player/updatePlayerPosition";
 import './index.css';
 
 class Scroller extends Component {
@@ -19,15 +21,7 @@ class Scroller extends Component {
         }
 
         let backgroundLayer = new Layer(gameMap.tiles, 48, 48);
-        //console.log("context: " + this.context);
         Map.setLayer("background", backgroundLayer);
-        console.log("CONSTRUCTOR");
-        
-    }
-
-    componentDidMount(){
-        console.log("scroller mount");
-        console.log(this.context);
     }
 
     // set context when store gets updated
@@ -42,43 +36,26 @@ class Scroller extends Component {
 
     // gets called for every game tick
     onTick() {
-        //console.log("tick");
+        updatePlayerPosition();
+        
+        if(this.state.context && this.state.canvas && Painter.getSpriteSheet()) {
+            this.draw();
+        }
         
     }
 
     draw() {
         Painter.drawVisibleTilesAroundPlayer("background");
         Painter.drawPlayer();
-        console.log("Player Global x: " + Player.getGlobalX());
-        console.log("Player Global y: " + Player.getGlobalY());
-        console.log("Player Visible x: " + Player.getVisibleX());
-        console.log("Player Visible y: " + Player.getVisibleY());
     }
 
-    // gets called whenever a key is pressed
     onKeyDown(keyCode) {
-        console.log("key: " + keyCode);
+        updatePlayerMovement(keyCode);
+        console.log(keyCode);
+    }
 
-        // move right
-        if(keyCode === 68) {
-            Player.moveHorizontally(10);
-            this.draw();
-        }
-        // move left
-        if(keyCode === 65) {
-            Player.moveHorizontally(-10);
-            this.draw();
-        }
-        // move up
-        if(keyCode === 87) {
-            Player.moveVertically(-10);
-            this.draw();
-        }
-        // move down
-        if(keyCode === 83) {
-            Player.moveVertically(10);
-            this.draw();
-        }
+    onKeyUp(keyCode) {
+        updatePlayerMovement2(keyCode);
     }
 
     render() {
@@ -90,7 +67,7 @@ class Scroller extends Component {
 
         return (
             <div className="scroller">
-                <Engine onTick={() => this.onTick()} onKeyDown={(key) => this.onKeyDown(key)}/>
+                <Engine onTick={() => this.onTick()} onKeyDown={(key) => this.onKeyDown(key)} onKeyUp={(key) => this.onKeyUp(key)}/>
                 <Board/>
             </div>
         );

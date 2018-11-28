@@ -26,6 +26,9 @@ class Engine extends Component {
         document.addEventListener('keydown', (e) => {
             this.props.onKeyDown((e.keyCode));
         });
+        document.addEventListener('keyup', (e) => {
+            this.props.onKeyUp((e.keyCode));
+        });
         this.loadSpriteSheet();
     }
 

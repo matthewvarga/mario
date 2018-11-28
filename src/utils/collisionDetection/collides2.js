@@ -16,9 +16,6 @@ export default function collides2(obj1, tileSection) {
 
 
             if(collides(obj1, tileObj) && tile.getType() === "SOLID") {
-                console.log("collides!@!@!@");
-                console.log(tile);
-                // return the tile collided with
                 return tile
             };
 

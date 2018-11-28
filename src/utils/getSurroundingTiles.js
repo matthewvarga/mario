@@ -15,10 +15,6 @@ export default function getSurroundingTiles(obj, radius, layer) {
     let col = Math.floor(obj.x / gameConfig.map.tiles.width);
     let row = Math.floor(obj.y / gameConfig.map.tiles.height);
 
-    console.log("row: " + row);
-    console.log(">= : " + (gameConfig.map.numRows - radius - 2));
-    console.log("radius : " + radius);
-
     let objHeightCol = Math.floor(obj.h / gameConfig.map.tiles.height);
     let objWidthCol = Math.floor(obj.w / gameConfig.map.tiles.width);
 
@@ -32,17 +28,17 @@ export default function getSurroundingTiles(obj, radius, layer) {
     // obj is in first col
     if((col - radius) <= 0){
         startCol = col;
-        endCol = col + radius + 1;
+        endCol = col + radius + objWidthCol;
     }
     // objs is in last col
-    else if(col === (gameConfig.map.numCols - (radius + 1))) {
+    else if(col === (gameConfig.map.numCols - (radius + objWidthCol))) {
         startCol = col - radius;
-        endCol = col + 1;
+        endCol = col + objWidthCol;
     }
     // obj is in between
     else {
         startCol = col - radius;
-        endCol = col + radius + 1;
+        endCol = col + radius + objWidthCol;
     }
 
     // if obj is in first row
