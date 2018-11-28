@@ -51,7 +51,6 @@ class Scroller extends Component {
 
     onKeyDown(keyCode) {
         updatePlayerMovement(keyCode);
-        console.log(keyCode);
     }
 
     onKeyUp(keyCode) {

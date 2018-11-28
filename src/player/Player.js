@@ -24,7 +24,8 @@ class Player {
         this._velocityX = gameConfig.player.velocityX;
         this._velocityY = gameConfig.player.velocityY;
         this._gravity = gameConfig.player.gravity;
-
+        this._jumpVelocity = gameConfig.player.jumpVelocity;
+        this._reducedJumpVelocity = gameConfig.player.reducedJumpVelocity;
         this._horizontalMovement = 0; // 1 = right, -1 = left, 0 = none
         this._verticalMovement = 0; // 1 = up, -1 = down, 0 = none
     }
@@ -115,19 +116,31 @@ class Player {
         return this._gravity;
     }
 
+    getJumpVelocity() {
+        return this._jumpVelocity;
+    }
+
+    getReducedJumpVelocity() {
+        return this._reducedJumpVelocity;
+    }
+
+    /**
+     * initiates a jump, and sets y velocity to be high.
+     */
     startJump() {
-        console.log("jumping");
         if(this.getVelocityY() == 0) {
-            this.setVelocityY(-6);
+            this.setVelocityY(this.getJumpVelocity());
         }
     }
 
+    /**
+     * slows and limits player y velocity when jumping.
+     */
     endJump() {
-        if(this.getVelocityY() < -3) {
-            this.setVelocityY(-3);
+        if(this.getVelocityY() < this.getReducedJumpVelocity()) {
+            this.setVelocityY(this.getReducedJumpVelocity());
         }
     }
-
 
     /**
      * moves the player either left or right distance
@@ -139,8 +152,8 @@ class Player {
         _moveHorizontallyVisibily();
     } 
 
-    moveVertically(distance) {
-        _moveVerticallyGlobally(distance);
+    moveVertically() {
+        _moveVerticallyGlobally();
         _moveVerticallyVisibly();
     }
 }

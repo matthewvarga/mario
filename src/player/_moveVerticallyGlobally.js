@@ -8,7 +8,7 @@ import gameConfig from "../resources/config.json";
  * private method, sets the global y position of the player
  * @param {Integer} distance - the distance the player is moving vertically 
  */
-export default function _moveVerticallyGlobally(distance) {
+export default function _moveVerticallyGlobally() {
     // set velocity += gravity
     Player.setVelocityY(Player.getVelocityY() + Player.getGravity());
     // set new position += velocity
@@ -48,14 +48,16 @@ export default function _moveVerticallyGlobally(distance) {
     } 
     // collision
     else {
-        Player.setVelocityY(0);
+        
         // while moving up
-        if (distance < 0) {
+        if (Player.getVelocityY() < 0) {
             Player.setGlobalY(collisionTile.getY() + collisionTile.getHeight())
         } 
         // while falling down
         else {
             Player.setGlobalY(collisionTile.getY() - Player.getHeight());
         }
+        // set players velocity to 0
+        Player.setVelocityY(0);
     }
 }
