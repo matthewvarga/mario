@@ -1,7 +1,7 @@
 import Player from "./Player";
 import Map from "../map/Map";
 import getSurroundingTiles from "../utils/getSurroundingTiles";
-import collides2 from "../utils/collisionDetection/collides2";
+import collidesAny from "../utils/collisionDetection/collidesAny";
 import gameConfig from "../resources/config.json";
 
 /**
@@ -40,7 +40,7 @@ export default function _moveVerticallyGlobally() {
     }
 
     surroundingTiles = getSurroundingTiles(playerObj, playerRadius, layer);
-    let collisionTile = collides2(playerObj, surroundingTiles);
+    let collisionTile = collidesAny(playerObj, surroundingTiles);
 
     // if there are no collisions with the player and the intended movement, then update
     if(!collisionTile) {

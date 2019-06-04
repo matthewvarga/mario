@@ -30,16 +30,10 @@ class Player {
         this._verticalMovement = 0; // 1 = up, -1 = down, 0 = none
     }
 
-    /**
-     * returns the width of the player
-     */
     getWidth() {
         return this._width;
     }
 
-    /**
-     * returns the width of the player
-     */
     getHeight() {
         return this._height;
     }
@@ -126,6 +120,10 @@ class Player {
 
     /**
      * initiates a jump, and sets y velocity to be high.
+     * 
+     * TODO: update to ensure the player is jumping off a solid block.
+     *       This should fix the bug where if timed correctly. can jump
+     *       at the peak height again before velocity is set to be negative.
      */
     startJump() {
         if(this.getVelocityY() == 0) {

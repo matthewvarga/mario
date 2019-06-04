@@ -6,8 +6,8 @@ import Map from "../../map/Map";
 import Layer from "../../layer/Layer";
 import Painter from "../../painter/Painter";
 import gameMap from "../../resources/map.json";
-import updatePlayerMovement from "../../player/updatePlayerMovement";
-import updatePlayerMovement2 from "../../player/updatePlayerMovement2";
+import updatePlayerMovementOnPress from "../../player/updatePlayerMovementOnPress";
+import updatePlayerMovementOnRelase from "../../player/updatePlayerMovementOnRelase";
 import updatePlayerPosition from "../../player/updatePlayerPosition";
 import './index.css';
 
@@ -34,7 +34,12 @@ class Scroller extends Component {
         }
     }
 
-    // gets called for every game tick
+    /**
+     * called on every game tick. Performs the following actions:
+     * 
+     * 1) updates players position
+     * 2) updates canvas
+     */
     onTick() {
         updatePlayerPosition();
         
@@ -44,17 +49,32 @@ class Scroller extends Component {
         
     }
 
+    /**
+     * draws the game board.
+     * 
+     * starts by drawing the background layer, then draws the player on top.
+     */
     draw() {
         Painter.drawVisibleTilesAroundPlayer("background");
         Painter.drawPlayer();
     }
 
+    /**
+     * key press listener. Updates players movement based on the key pressed.
+     * 
+     * @param {int} keyCode - key pressed
+     */
     onKeyDown(keyCode) {
-        updatePlayerMovement(keyCode);
+        updatePlayerMovementOnPress(keyCode);
     }
 
+    /**
+     * key release listner. Updates players movement based on key released.
+     * 
+     * @param {int} keyCode - ey released
+     */
     onKeyUp(keyCode) {
-        updatePlayerMovement2(keyCode);
+        updatePlayerMovementOnRelase(keyCode);
     }
 
     render() {

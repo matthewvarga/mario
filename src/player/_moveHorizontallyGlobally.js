@@ -1,7 +1,7 @@
 import Player from "./Player";
 import gameConfig from "../resources/config.json";
 import getSurroundingTiles from "../utils/getSurroundingTiles";
-import collides2 from "../utils/collisionDetection/collides2";
+import collidesAny from "../utils/collisionDetection/collidesAny";
 import Map from "../map/Map";
 
 /**
@@ -34,7 +34,7 @@ export default function _moveHorizontallyGlobally(distance) {
 
     surroundingTiles = getSurroundingTiles(playerObj, playerRadius, layer);
 
-    let collisionTile = collides2(playerObj,surroundingTiles);
+    let collisionTile = collidesAny(playerObj,surroundingTiles);
     // if there are no collisions with the player and the intended movement, then upda
     if(!collisionTile) {
         Player.setGlobalX(playerObj.x);

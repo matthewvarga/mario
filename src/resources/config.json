@@ -24,9 +24,9 @@
        },
        "velocityX": 4,
        "velocityY": 0,
-       "gravity": 0.1,
-       "jumpVelocity": -6,
-       "reducedJumpVelocity": -2
+       "gravity": 0.5,
+       "jumpVelocity": -11,
+       "reducedJumpVelocity": -4
    },
    "spriteSheet": {
        "numCols": 32,

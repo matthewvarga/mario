@@ -11,7 +11,7 @@ import Player from "./Player";
  * 
  * @param {Integer} keyCode - keyCode of key released
  */
-export default function updatePlayerMovement2(keyCode) {
+export default function updatePlayerMovementOnRelase(keyCode) {
     // right
     if((keyCode === 68) && (Player.getHorizontalMovement() === 1)) {
         Player.setHorizontalMovement(0);
