@@ -30,5 +30,29 @@ The map class is a very simple one, with the sole purpose of storing and providi
 #### Layer
 The layer class is also a very simple one, used to store an individual layer. However, it does have one interesting feature that becomes very useful.
 
+### SpriteSheet
+The spritesheet is composed of 33 columns (32 if counting from 0), and 28 rows (27 if counting form 0).
+Each sprite is 48x48 pixels.
+
+each sprite has a unique integer value, which is calculated as follows:
+(we will be using the top right of a pipe for an example calculation).
+
+1) Find the row the sprite is in (starting from 0).
+2) Multiply it by the number of columns within the sheet.
+3) Find the column the sprite is in (starting from 0).
+4) Add the column to the product previously calculated.
+
+The result is the unique identifier for the sprite.
+
+Example: The top right pipe.
+1) 8
+2) 8x32 = 256
+3) 1
+4) 256 + 1 = 257
+==> sprite value for top right pipe is 257.
+
+#### Sprite
+Understanding a sprite value.
+
 ``getSection(startCol, endCol, startRow, endRow)`` - this method allows you to retrieve only a portion of the layers tiles, restricted within the box that is defined by the startCol, endCol, startRow, and endRow. This is particularily important, because it allows for only the visible section of the layer to be selected, making it much easier for when we want to paint only visible content.
 

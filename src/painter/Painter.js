@@ -79,10 +79,11 @@ class Painter {
                 let tile = tiles[y][x];
                 let sprite = tiles[y][x].getSprite();
                     
-                // the sprites top left y coord on spritesheet
-                let spriteY = Math.floor(sprite/numSpritesheetCols) * spriteHeight;
-                // the sprites top left x coord on spritesheet
-                let spriteX = ((sprite % numSpritesheetCols) -1 )* spriteWidth;
+                let spriteColumn = Math.floor(sprite/numSpritesheetCols);
+                let spriteRow = sprite - (spriteColumn * numSpritesheetCols);
+
+                let spriteY = spriteColumn * spriteHeight;
+                let spriteX = spriteRow * spriteWidth;
 
 
                 if(playerVisibleX === centerView) {

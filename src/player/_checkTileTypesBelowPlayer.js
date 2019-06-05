@@ -1,7 +1,5 @@
 import Player from "./Player";
 import gameConfig from "../resources/config.json";
-import getSurroundingTiles from "../utils/getSurroundingTiles";
-import collidesAny from "../utils/collisionDetection/collidesAny";
 import Map from "../map/Map";
 
 /**
