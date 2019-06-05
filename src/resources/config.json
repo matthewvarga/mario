@@ -16,11 +16,11 @@
     },
    "player": {
        "width": 48,
-       "height": 96,
+       "height": 48,
        "collisionDetectionRadius": 1,
        "startPosition": {
            "x": 96,
-           "y": 432
+           "y": 480
        },
        "velocityX": 4,
        "velocityY": 0,
