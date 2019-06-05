@@ -101,32 +101,39 @@ class Painter {
     }
 
     drawVisibleTilesAroundPlayer(layerName) {
+        // select the layer we will be drawing
         let layer = Map.getLayer(layerName);
 
+        // get players visible x coord and their global x coord
         let playerVisibleX = Player.getVisibleX();
         let playerGlobalX = Player.getGlobalX();
 
+        // calculate the maps max width
         let mapMaxWidth = (Map.getNumCols() - 1) * gameConfig.map.tiles.width;
+
+        // calculate the center of the visible screen
         let centerView = gameConfig.screen.viewWidth / 2;
 
+        // select which column the player is in
         let playerCol = Math.floor(playerGlobalX/48);
 
         let section;
 
+        // get the number of buffer columns from game config
         let numBufferCols = gameConfig.screen.bufferCols;
 
-        // in the center of screen, even number of cols on each side
+        // player is in the center of screen, even number of cols on each side
         if(playerVisibleX == centerView) {
             let startCol = playerCol - Math.floor(Map.getNumVisibleCols()/2);
             let endCol = playerCol + Math.floor(Map.getNumVisibleCols()/2) + numBufferCols;
 
             section = layer.getSection(startCol, endCol, 0, Map.getNumVisibleRows());
         }
-        // last tiles
+        // player is at end of screen (on the last visible tiles)
         else if(playerGlobalX >= (mapMaxWidth - centerView)) {
             section = layer.getSection(Map.getNumCols() - Map.getNumVisibleCols() , Map.getNumCols(), 0, Map.getNumVisibleRows());
         }
-        // first tiles
+        // player is at start of screen (on the first tiles)
         else {
             section = layer.getSection(0, Map.getNumVisibleCols() + numBufferCols, 0, Map.getNumVisibleRows());
         }

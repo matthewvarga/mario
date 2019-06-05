@@ -9,12 +9,19 @@ import Map from "../map/Map";
  * @param {Integer} distance - distance player is trying to move
  */
 export default function _moveHorizontallyGlobally(distance) {
+    // get players current x coord
     let globalX = Player.getGlobalX();
+    // set new x coord with the distance travelled
     let newX = globalX + distance;
+    // get width of the game map
     let mapMaxWidth = (gameConfig.map.numCols - 1) * gameConfig.map.tiles.width;
+    // get player radius
     let playerRadius = Player.getCollisionDetectionRadius();
+    // get background layer
     let layer = Map.getLayer("background");
+
     let surroundingTiles;
+    // create a player object containing the players position and size
     let playerObj = {
         x: null,
         y: Player.getGlobalY(),
@@ -22,16 +29,20 @@ export default function _moveHorizontallyGlobally(distance) {
         h: Player.getHeight()
     };
 
+    // if player moved off the map to the left (start), reset to 0.
     if(newX <= 0) { 
         playerObj.x = 0;
     }
+    // if player moved off the map to right (end), reset to end of map
     else if(newX >= mapMaxWidth) {
         playerObj.x = mapMaxWidth;
     }
+    // otherwise, they are still within the map and do not make any changes
     else {
         playerObj.x = newX;
     }
 
+    // retrieve the tiles surrounding the player
     surroundingTiles = getSurroundingTiles(playerObj, playerRadius, layer);
 
     let collisionTile = collidesAny(playerObj,surroundingTiles);

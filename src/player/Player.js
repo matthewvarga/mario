@@ -3,6 +3,7 @@ import _moveVerticallyGlobally from "./_moveVerticallyGlobally";
 import _moveVerticallyVisibly from "./_moveVerticallyVisibly";
 import _moveHorizontallyGlobally from "./_moveHorizontallyGlobally";
 import _moveHorizontallyVisibily from "./_moveHorizontallyVisibily";
+import _checkTileTypesBelowPlayer from "./_checkTileTypesBelowPlayer";
 
 class Player {
 
@@ -120,13 +121,12 @@ class Player {
 
     /**
      * initiates a jump, and sets y velocity to be high.
-     * 
-     * TODO: update to ensure the player is jumping off a solid block.
-     *       This should fix the bug where if timed correctly. can jump
-     *       at the peak height again before velocity is set to be negative.
      */
     startJump() {
-        if(this.getVelocityY() == 0) {
+        let tileTypesBelowPlayer = _checkTileTypesBelowPlayer();
+    
+        // if the player is standing still, and is on a solid tile, either partially or fully, then begin jump
+        if(this.getVelocityY() == 0 && (tileTypesBelowPlayer[0] === "SOLID" || tileTypesBelowPlayer[1] === "SOLID")) {
             this.setVelocityY(this.getJumpVelocity());
         }
     }

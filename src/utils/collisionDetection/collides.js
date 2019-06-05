@@ -18,15 +18,23 @@ function _isInvalid(obj) {
  *  y: the top right y coord of rectangle
  *  w: the width of the rectangle
  *  h: the height of the rectangle
- * @param {Object} obj1 - contains top left (x,y) coord, and width / height 
- * @param {Object} obj2 - contains top left (x,y) coord, and width / height
+ * @param {Object} obj1 - object of the form: 
+ *                        {x: int - x coord of object
+ *                         y: int - y coord of object
+ *                         w: int - width of object
+ *                         h: int - height of object}
+ * @param {Object} obj2 - object of the form: 
+ *                        {x: int - x coord of object
+ *                         y: int - y coord of object
+ *                         w: int - width of object
+ *                         h: int - height of object}
  */
 export default function collides(obj1, obj2) {
 
     // todo fix
     if(_isInvalid(obj1) || _isInvalid(obj2) || 
        _isInvalid(obj1.x) || _isInvalid(obj1.y) || _isInvalid(obj1.w) || _isInvalid(obj1.h) || 
-       _isInvalid(obj2.x) || _isInvalid(obj2.y) || _isInvalid(obj2.w) || _isInvalid(obj2.y)) {
+       _isInvalid(obj2.x) || _isInvalid(obj2.y) || _isInvalid(obj2.w) || _isInvalid(obj2.h)) {
         
         console.log("invalid input");
         console.log("obj1: ");
