@@ -35,5 +35,6 @@
             "width": 48,
             "height": 48
         }
-   }
+   },
+   "debugMode": true
 }

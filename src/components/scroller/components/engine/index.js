@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Painter from "../../../../painter/Painter";
+import PainterDebugMode from "../../../../painter/PainterDebugMode";
 import sprites from "../../../../sprites.png";
 
 class Engine extends Component {
@@ -12,10 +13,14 @@ class Engine extends Component {
         
     }
 
+    /**
+     * Load spritesheets into both painter, and debug painter
+     */
     loadSpriteSheet() {
         let image = new Image();
         image.onload = function() {
             Painter.setSpriteSheet(image);
+            PainterDebugMode.setSpriteSheet(image);
         }
         image.src=sprites;
     }

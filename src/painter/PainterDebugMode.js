@@ -60,10 +60,28 @@ class Painter {
     }
 
     /**
+     * draws a square outline wuith the colour provided
+     * @param {*} square {x: int, y: int, w: int, h: int} coords of square being drawn
+     * @param {*} colour colour of outline
+     */
+    drawSquareOutline(square, colour) {
+        let context = this.getcontext();
+
+        context.beginPath();
+
+        context.lineWidth = "2";
+        context.strokeStyle = colour;
+        context.rect(square.x, square.y, square.w, square.h);
+        context.stroke();
+
+        context.closePath();
+    }
+
+    /**
      * draws the tiles provided from the origin on the screen
      * @param {*} tiles 
      */
-    drawTiles(tiles, horizontalOffset) {
+    drawTiles(tiles, horizontalOffset, layerName) {
         let context = this.getcontext();
         let spriteWidth = gameConfig.spriteSheet.sprites.width;
         let spriteHeight = gameConfig.spriteSheet.sprites.height;
@@ -71,6 +89,20 @@ class Painter {
 
         let playerVisibleX = Player.getVisibleX();
         let centerView = gameConfig.screen.viewWidth / 2;
+
+
+        // set debug outline colours for each layer
+        let outlineColour;
+        switch(layerName) {
+            case "background":
+                outlineColour = "red";
+                break;
+            case "foreground":
+                outlineColour = "blue";
+                break;
+            default:
+                outlineColour = "black";
+        }
 
         for(let y = 0; y < tiles.length; y++) {
             for(let x = 0; x < tiles[y].length; x++) {
@@ -89,13 +121,35 @@ class Painter {
     
                     if(playerVisibleX === centerView) {
                         context.beginPath();
+                        
+                        // draw the sprite
                         context.drawImage(this.getSpriteSheet(), spriteX, spriteY, spriteWidth, spriteHeight, x*tile.getWidth() + horizontalOffset, y*tile.getHeight(), tile.getWidth(), tile.getHeight());
+                        
+                        // draw the outline
+                        this.drawSquareOutline({
+                            x: x*tile.getWidth() + horizontalOffset,
+                            y: y*tile.getHeight(),
+                            w: tile.getWidth(),
+                            h: tile.getHeight()
+                        },outlineColour);
+
                         context.closePath();
     
                     }
                     else {
                         context.beginPath();
+
+                        // draw the sprite
                         context.drawImage(this.getSpriteSheet(), spriteX, spriteY, spriteWidth, spriteHeight, x*tile.getWidth(), y*tile.getHeight(), tile.getWidth(), tile.getHeight());
+                        
+                         // draw the outline
+                         this.drawSquareOutline({
+                            x: x*tile.getWidth(),
+                            y: y*tile.getHeight(),
+                            w: tile.getWidth(),
+                            h: tile.getHeight()
+                        },outlineColour);
+
                         context.closePath();
                     }
                 }
@@ -142,7 +196,7 @@ class Painter {
             section = layer.getSection(0, Map.getNumVisibleCols() + numBufferCols, 0, Map.getNumVisibleRows());
         }
 
-        this.drawTiles(section, -(playerGlobalX%48));
+        this.drawTiles(section, -(playerGlobalX%48), layerName);
     }
 
     drawPlayer() {
