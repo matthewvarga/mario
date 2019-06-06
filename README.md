@@ -6,11 +6,11 @@ This is a recreation of the original Super Mario Bros built as a modern web app.
 **_Note:_** I do not own any of the resources used for this, such as the sprites.
 
 ## Running
-To run the application, clone the repo and rename the folder from mario to "scroller" (I may resolve this issue someday, but am too lazy right now). Then run npm start from the scroller directory. This requires create-react-app to be installed.
+To run the application, clone the repo and rename the folder from mario to "scroller" (I may resolve this issue someday, but am too lazy right now). Then run `npm start` from the scroller directory. This requires create-react-app to be installed.
 
 ## How it works
 ### Components
-This entire application can be built without using react / redux, and using vanilla javascript instead. however, as this is a hobby for fun and elarning, I figured it'd be fun to use.
+This entire application can be built without using react / redux, and using vanilla javascript instead. However, as this is a hobby for fun and learning, I figured it'd be fun to use.
 
 #### Scroller
 The scroller component is really the piece that puts everything together. It listens for game ticks and keyboard strokes, and updates players / npcs accordingly. 
