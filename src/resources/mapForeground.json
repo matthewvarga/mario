@@ -69,17 +69,17 @@
             {
                 "col": 20,
                 "row": 2,
-                "sprite": 993
+                "sprite": 640
             },
             {
                 "col": 21,
                 "row": 2,
-                "sprite": 994
+                "sprite": 641
             },
             {
                 "col": 22,
                 "row": 2,
-                "sprite": 995
+                "sprite": 642
             },
             null,
             null,
@@ -89,27 +89,27 @@
             {
                 "col": 28,
                 "row": 2,
-                "sprite": 961
+                "sprite": 640
             },
             {
                 "col": 29,
                 "row": 2,
-                "sprite": 962
+                "sprite": 641
             },
             {
                 "col": 30,
                 "row": 2,
-                "sprite": 962
+                "sprite": 641
             },
             {
                 "col": 31,
                 "row": 2,
-                "sprite": 962
+                "sprite": 641
             },
             {
                 "col": 32,
                 "row": 2,
-                "sprite": 963
+                "sprite": 642
             }
         ],
         [
@@ -132,9 +132,21 @@
             null,
             null,
             null,
-            null,
-            null,
-            null,
+            {
+                "col": 20,
+                "row": 3,
+                "sprite": 672
+            },
+            {
+                "col": 21,
+                "row": 3,
+                "sprite": 673
+            },
+            {
+                "col": 22,
+                "row": 3,
+                "sprite": 674
+            },
             null,
             null,
             null,
@@ -143,27 +155,27 @@
             {
                 "col": 28,
                 "row": 3,
-                "sprite": 993
+                "sprite": 672
             },
             {
                 "col": 29,
                 "row": 3,
-                "sprite": 994
+                "sprite": 673
             },
             {
                 "col": 30,
                 "row": 3,
-                "sprite": 994
+                "sprite": 673
             },
             {
                 "col": 31,
                 "row": 3,
-                "sprite": 994
+                "sprite": 673
             },
             {
                 "col": 32,
                 "row": 3,
-                "sprite": 995
+                "sprite": 674
             }
         ],
         [
