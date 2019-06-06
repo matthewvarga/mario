@@ -19,18 +19,20 @@ export default function collidesAny(obj1, tileSection) {
         for(let x = 0; x < tileSection[y].length; x++) {
             let tile = tileSection[y][x];
 
-            let tileObj = {
-                x: tile.getX(),
-                y: tile.getY(),
-                w: tile.getWidth(),
-                h: tile.getHeight()
+            // only check for collision with non-null tiles
+            if(tile != null) {
+                let tileObj = {
+                    x: tile.getX(),
+                    y: tile.getY(),
+                    w: tile.getWidth(),
+                    h: tile.getHeight()
+                }
+    
+    
+                if(collides(obj1, tileObj) && tile.getType() === "SOLID") {
+                    return tile
+                };
             }
-
-
-            if(collides(obj1, tileObj) && tile.getType() === "SOLID") {
-                return tile
-            };
-
         }
     }
     return false;

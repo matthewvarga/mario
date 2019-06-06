@@ -15,7 +15,7 @@ export default class Layer {
         for(let y = 0; y < this._tiles.length; y++) {
             for(let x = 0; x < this._tiles[y].length; x++) {
                 let tile = this._tiles[y][x];
-                this._tiles[y][x] = new Tile(tile);
+                this._tiles[y][x] = (tile === null) ? null : new Tile(tile);
             }
         }
     }

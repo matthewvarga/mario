@@ -72,31 +72,36 @@ class Painter {
         let playerVisibleX = Player.getVisibleX();
         let centerView = gameConfig.screen.viewWidth / 2;
 
-        this.clear();
+        //this.clear();
 
         for(let y = 0; y < tiles.length; y++) {
             for(let x = 0; x < tiles[y].length; x++) {
                 let tile = tiles[y][x];
-                let sprite = tiles[y][x].getSprite();
+
+                // do nothing tile is null, as there is nothing to be drawn
+                if (tile != null) {
+                    let sprite = tiles[y][x].getSprite();
                     
-                let spriteColumn = Math.floor(sprite/numSpritesheetCols);
-                let spriteRow = sprite - (spriteColumn * numSpritesheetCols);
-
-                let spriteY = spriteColumn * spriteHeight;
-                let spriteX = spriteRow * spriteWidth;
-
-
-                if(playerVisibleX === centerView) {
-                    context.beginPath();
-                    context.drawImage(this.getSpriteSheet(), spriteX, spriteY, spriteWidth, spriteHeight, x*tile.getWidth() + horizontalOffset, y*tile.getHeight(), tile.getWidth(), tile.getHeight());
-                    context.closePath();
-
+                    let spriteColumn = Math.floor(sprite/numSpritesheetCols);
+                    let spriteRow = sprite - (spriteColumn * numSpritesheetCols);
+    
+                    let spriteY = spriteColumn * spriteHeight;
+                    let spriteX = spriteRow * spriteWidth;
+    
+    
+                    if(playerVisibleX === centerView) {
+                        context.beginPath();
+                        context.drawImage(this.getSpriteSheet(), spriteX, spriteY, spriteWidth, spriteHeight, x*tile.getWidth() + horizontalOffset, y*tile.getHeight(), tile.getWidth(), tile.getHeight());
+                        context.closePath();
+    
+                    }
+                    else {
+                        context.beginPath();
+                        context.drawImage(this.getSpriteSheet(), spriteX, spriteY, spriteWidth, spriteHeight, x*tile.getWidth(), y*tile.getHeight(), tile.getWidth(), tile.getHeight());
+                        context.closePath();
+                    }
                 }
-                else {
-                    context.beginPath();
-                    context.drawImage(this.getSpriteSheet(), spriteX, spriteY, spriteWidth, spriteHeight, x*tile.getWidth(), y*tile.getHeight(), tile.getWidth(), tile.getHeight());
-                    context.closePath();
-                }
+                
             }
         }
     }

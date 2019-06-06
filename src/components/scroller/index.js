@@ -6,6 +6,10 @@ import Map from "../../map/Map";
 import Layer from "../../layer/Layer";
 import Painter from "../../painter/Painter";
 import gameMap from "../../resources/map.json";
+
+import backgroundMap from "../../resources/mapBackground.json";
+import foregroundMap from "../../resources/mapForeground.json";
+
 import updatePlayerMovementOnPress from "../../player/updatePlayerMovementOnPress";
 import updatePlayerMovementOnRelase from "../../player/updatePlayerMovementOnRelase";
 import updatePlayerPosition from "../../player/updatePlayerPosition";
@@ -20,8 +24,11 @@ class Scroller extends Component {
             canvas: null
         }
 
-        let backgroundLayer = new Layer(gameMap.tiles, 48, 48);
+        // load background and foreground
+        let backgroundLayer = new Layer(backgroundMap.tiles, 48, 48);
+        let foregroundLayer = new Layer(foregroundMap.tiles, 48, 48);
         Map.setLayer("background", backgroundLayer);
+        Map.setLayer("foreground", foregroundLayer);
     }
 
     // set context when store gets updated
@@ -55,7 +62,12 @@ class Scroller extends Component {
      * starts by drawing the background layer, then draws the player on top.
      */
     draw() {
+        // clear the canvas
+        //Painter.clear();
+        // draw the background (sky)
         Painter.drawVisibleTilesAroundPlayer("background");
+        // draw the foreground (blocks, bushes, etc...)
+        Painter.drawVisibleTilesAroundPlayer("foreground");
         Painter.drawPlayer();
     }
 

@@ -17,7 +17,7 @@ import Map from "../map/Map";
  */
 export default function _checkTilesTypeBelowPlayer() {
     // select the background layer
-    let layer = Map.getLayer("background");
+    let layer = Map.getLayer("foreground");
 
     // get the col and row the player is currently within
     let col1 = Math.floor(Player.getGlobalX() / gameConfig.map.tiles.width); // left tile player is over
@@ -45,7 +45,11 @@ export default function _checkTilesTypeBelowPlayer() {
     let tileBeneathPlayer1 = layer.getTile(tileBeneathPlayerCol1, tileBeneathPlayerRow);
     let tileBeneathPlayer2 = layer.getTile(tileBeneathPlayerCol2, tileBeneathPlayerRow);
 
+    // get type of tyles benesath player. if the tiles are null, set to null.
+    let tileBeneathPlayer1Type = (tileBeneathPlayer1 === null) ? null : tileBeneathPlayer1.getType();
+    let tileBeneathPlayer2Type = (tileBeneathPlayer2 === null) ? null : tileBeneathPlayer2.getType();
+
 
     // return their type
-    return [tileBeneathPlayer1.getType(), tileBeneathPlayer2.getType()];
+    return [tileBeneathPlayer1Type, tileBeneathPlayer2Type];
 }

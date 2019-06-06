@@ -16,7 +16,7 @@ export default function _moveVerticallyGlobally() {
 
     let mapMaxHeight = (gameConfig.map.numRows -1) * gameConfig.map.tiles.height;
     let playerRadius = Player.getCollisionDetectionRadius();
-    let layer = Map.getLayer("background");
+    let  layer = Map.getLayer("foreground");
     let surroundingTiles;
 
     let playerObj = {

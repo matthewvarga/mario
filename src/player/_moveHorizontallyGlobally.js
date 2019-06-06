@@ -17,8 +17,8 @@ export default function _moveHorizontallyGlobally(distance) {
     let mapMaxWidth = (gameConfig.map.numCols - 1) * gameConfig.map.tiles.width;
     // get player radius
     let playerRadius = Player.getCollisionDetectionRadius();
-    // get background layer
-    let layer = Map.getLayer("background");
+    // get foreground layer
+    let layer = Map.getLayer("foreground");
 
     let surroundingTiles;
     // create a player object containing the players position and size
