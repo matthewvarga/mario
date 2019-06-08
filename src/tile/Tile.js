@@ -9,7 +9,8 @@ export default class Tile {
      *  - col: the column of the tile within the map
      *  - row: the row of the tile within the map
      *  - sprite: the sprite code within the spritesheet
-     *  - type (optional): the type of the tyle 
+     *  - state: the state of the block (i.e SOLID, ) 
+     *  - type (optional): the type of the tyle (i.e. BRICK)
      * @param {Object} tile 
      */
     constructor(tile){
@@ -20,6 +21,7 @@ export default class Tile {
         this._w = gameConfig.map.tiles.width;
         this._h = gameConfig.map.tiles.height;
         this._sprite = tile.sprite;
+        this._state = tile.state;
         this._type = tile.type;
     }
 
@@ -44,7 +46,10 @@ export default class Tile {
     getSprite() {
         return this._sprite;
     }
+    getState() {
+        return this._state;
+    }
     getType() {
-        return this._type;
+
     }
 }

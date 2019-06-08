@@ -15,7 +15,7 @@ import Map from "../map/Map";
  * primarily used for when a player tries to jump. Want to see if they are
  * jumping from a solid.
  */
-export default function _checkTilesTypeBelowPlayer() {
+export default function _checkTilesStateBelowPlayer() {
     // select the background layer
     let layer = Map.getLayer("foreground");
 
@@ -46,8 +46,8 @@ export default function _checkTilesTypeBelowPlayer() {
     let tileBeneathPlayer2 = layer.getTile(tileBeneathPlayerCol2, tileBeneathPlayerRow);
 
     // get type of tyles benesath player. if the tiles are null, set to null.
-    let tileBeneathPlayer1Type = (tileBeneathPlayer1 === null) ? null : tileBeneathPlayer1.getType();
-    let tileBeneathPlayer2Type = (tileBeneathPlayer2 === null) ? null : tileBeneathPlayer2.getType();
+    let tileBeneathPlayer1Type = (tileBeneathPlayer1 === null) ? null : tileBeneathPlayer1.getState();
+    let tileBeneathPlayer2Type = (tileBeneathPlayer2 === null) ? null : tileBeneathPlayer2.getState();
 
 
     // return their type

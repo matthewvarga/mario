@@ -29,7 +29,7 @@ export default function collidesAny(obj1, tileSection) {
                 }
     
     
-                if(collides(obj1, tileObj) && tile.getType() === "SOLID") {
+                if(collides(obj1, tileObj) && tile.getState() === "SOLID") {
                     return tile
                 };
             }

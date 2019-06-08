@@ -3,7 +3,7 @@ import _moveVerticallyGlobally from "./_moveVerticallyGlobally";
 import _moveVerticallyVisibly from "./_moveVerticallyVisibly";
 import _moveHorizontallyGlobally from "./_moveHorizontallyGlobally";
 import _moveHorizontallyVisibily from "./_moveHorizontallyVisibily";
-import _checkTileTypesBelowPlayer from "./_checkTileTypesBelowPlayer";
+import _checkTileTypesBelowPlayer from "./_checkTilesStateBelowPlayer";
 
 class Player {
 

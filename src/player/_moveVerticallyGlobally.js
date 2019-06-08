@@ -51,7 +51,9 @@ export default function _moveVerticallyGlobally() {
         
         // while moving up
         if (Player.getVelocityY() < 0) {
-            Player.setGlobalY(collisionTile.getY() + collisionTile.getHeight())
+            Player.setGlobalY(collisionTile.getY() + collisionTile.getHeight());
+            console.log("collision going up");
+            console.log(collisionTile);
         } 
         // while falling down
         else {

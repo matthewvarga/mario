@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Painter from "../../../../painter/Painter";
 import PainterDebugMode from "../../../../painter/PainterDebugMode";
-import sprites from "../../../../sprites.png";
+import sprites from "../../../../resources/sprites.png";
 
 class Engine extends Component {
 

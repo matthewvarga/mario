@@ -1,7 +1,35 @@
 # Mario
 
-## About
-This is a recreation of the original Super Mario Bros built as a modern web app. It is a project I am doing for fun, and as a learning experience. 
+This project is a recreation of the original Super Mario Bros built as a modern web app. It is a project I am doing for fun.
+
+**_Note:_** I do not own the assets (i.e. sprites).
+
+## How it Works
+
+### Configuration
+
+The game settings are configured in `resources/config.json`. 
+
+#### Screen
+The `screen` is the viewable game canvas, and the `bufferCols` is the number of buffer columns to be drawn. 
+
+A `buffer column` is a column that is loaded to the left and right of the minimum number of visible columns within the screen.
+
+__For example__: If the screen size is 30x30 pixels, and a tile is 3x3 pixels, then the screen would be filled with 10x10 tiles. 
+
+Now if you try to move right, what is actually happening is the background is moving left. 
+
+So lets say the player moves 2 pixels to the right. Then the 10x10 tiles that were visible would all move 2 pixels to the left. So now the first column of visible tiles is overflowing 2 pixels off the left (invisible), and there is an empty gap of 2 pixels in the last column.
+
+This is why a buffer column is used and is drawn off the screen, so when a player moves, it is shifted on screen, and there is no amount of empty space on either side. 
+
+#### Map
+
+The `Map` configuration is where you define how large the game map is, by indicating how big each `tile` is, and then how many `rows` and `columns` of tiles there are in the entire map.
+
+#### Player
+
+the `Player` configuration is where you d
 
 **_Note:_** I do not own any of the resources used for this, such as the sprites.
 

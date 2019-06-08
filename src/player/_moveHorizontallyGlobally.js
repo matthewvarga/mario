@@ -46,6 +46,10 @@ export default function _moveHorizontallyGlobally(distance) {
     surroundingTiles = getSurroundingTiles(playerObj, playerRadius, layer);
 
     let collisionTile = collidesAny(playerObj,surroundingTiles);
+
+    console.log("collision tile");
+    console.log(collisionTile);
+    
     // if there are no collisions with the player and the intended movement, then upda
     if(!collisionTile) {
         Player.setGlobalX(playerObj.x);

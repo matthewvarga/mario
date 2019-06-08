@@ -205,7 +205,8 @@
                 "col": 23,
                 "row": 4,
                 "sprite": 24,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "?"
             },
             null,
             null,
@@ -340,7 +341,8 @@
                 "col": 17,
                 "row": 8,
                 "sprite": 24,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "?"
             },
             null,
             null,
@@ -349,31 +351,36 @@
                 "col": 21,
                 "row": 8,
                 "sprite": 1,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 22,
                 "row": 8,
                 "sprite": 24,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "?"
             },
             {
                 "col": 23,
                 "row": 8,
                 "sprite": 1,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 24,
                 "row": 8,
                 "sprite": 24,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "?"
             },
             {
                 "col": 25,
                 "row": 8,
                 "sprite": 1,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             null,
             null,
@@ -470,13 +477,15 @@
                 "col": 29,
                 "row": 10,
                 "sprite": 256,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "PIPETOP"
             },
             {
                 "col": 30,
                 "row": 10,
                 "sprite": 257,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "PIPETOP"
             },
             null,
             null
@@ -578,13 +587,15 @@
                 "col": 29,
                 "row": 11,
                 "sprite": 288,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "PIPE"
             },
             {
                 "col": 30,
                 "row": 11,
                 "sprite": 289,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "PIPE"
             },
             null,
             null
@@ -594,193 +605,225 @@
                 "col": 1,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 2,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 3,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 4,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 5,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 6,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 7,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 8,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 9,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 10,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 11,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 12,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 13,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 14,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 15,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 16,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 17,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 18,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 19,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 20,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 21,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 22,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 23,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 24,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 25,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 26,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 27,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 28,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 29,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 30,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 31,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             },
             {
                 "col": 32,
                 "row": 12,
                 "sprite": 0,
-                "type": "SOLID"
+                "state": "SOLID",
+                "type": "BRICK"
             }
         ]
     ]
