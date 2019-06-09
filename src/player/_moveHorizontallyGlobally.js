@@ -45,18 +45,16 @@ export default function _moveHorizontallyGlobally(distance) {
     // retrieve the tiles surrounding the player
     surroundingTiles = getSurroundingTiles(playerObj, playerRadius, layer);
 
-    let collisionTile = collidesAny(playerObj,surroundingTiles);
-
-    console.log("collision tile");
-    console.log(collisionTile);
+    let collisionTiles = collidesAny(playerObj,surroundingTiles);
     
     // if there are no collisions with the player and the intended movement, then upda
-    if(!collisionTile) {
+    if(!collisionTiles.length) {
         Player.setGlobalX(playerObj.x);
     } 
     // collision
     else {
         // align the player on proper side of block depending on their direction
-        (distance < 0) ? Player.setGlobalX(collisionTile.getX() + Player.getWidth()): Player.setGlobalX(collisionTile.getX() - Player.getWidth());
+        // TODO: double check that using first collision tile is fine
+        (distance < 0) ? Player.setGlobalX(collisionTiles[0].getX() + Player.getWidth()): Player.setGlobalX(collisionTiles[0].getX() - Player.getWidth());
     }
 }

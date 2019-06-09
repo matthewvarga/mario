@@ -50,6 +50,6 @@ export default class Tile {
         return this._state;
     }
     getType() {
-
+        return this._type;
     }
 }

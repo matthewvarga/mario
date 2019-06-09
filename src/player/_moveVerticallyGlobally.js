@@ -40,24 +40,32 @@ export default function _moveVerticallyGlobally() {
     }
 
     surroundingTiles = getSurroundingTiles(playerObj, playerRadius, layer);
-    let collisionTile = collidesAny(playerObj, surroundingTiles);
+    let collisionTiles = collidesAny(playerObj, surroundingTiles);
+
+    if(collisionTiles.length) {
+        for(let i = 0, len = collisionTiles.length; i < len; i++) {
+            if (collisionTiles[i].getType() === "?") {
+                console.log("COLLISION WITH ?");
+            }
+        }
+    }
+    
 
     // if there are no collisions with the player and the intended movement, then update
-    if(!collisionTile) {
+    if(!collisionTiles.length) {
         Player.setGlobalY(playerObj.y);
     } 
     // collision
+    // TODO: double check it is fine to use first collision tile only
     else {
         
         // while moving up
         if (Player.getVelocityY() < 0) {
-            Player.setGlobalY(collisionTile.getY() + collisionTile.getHeight());
-            console.log("collision going up");
-            console.log(collisionTile);
+            Player.setGlobalY(collisionTiles[0].getY() + collisionTiles[0].getHeight());
         } 
         // while falling down
         else {
-            Player.setGlobalY(collisionTile.getY() - Player.getHeight());
+            Player.setGlobalY(collisionTiles[0].getY() - Player.getHeight());
         }
         // set players velocity to 0
         Player.setVelocityY(0);

@@ -13,6 +13,8 @@ import collides from "./collides";
  */
 export default function collidesAny(obj1, tileSection) {
 
+    let collisionTiles = [];
+
     // loop through each tile within the tile section, and check if any
     // tiles collide with the object.
     for(let y = 0; y < tileSection.length; y++) {
@@ -30,10 +32,10 @@ export default function collidesAny(obj1, tileSection) {
     
     
                 if(collides(obj1, tileObj) && tile.getState() === "SOLID") {
-                    return tile
+                    collisionTiles.push(tile);
                 };
             }
         }
     }
-    return false;
+    return collisionTiles;
 }
