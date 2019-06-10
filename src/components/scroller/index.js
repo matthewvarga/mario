@@ -77,19 +77,35 @@ class Scroller extends Component {
             Player.getCollisionDetectionRadius(),
             Map.getLayer("foreground"));
 
+            let playerVisibleX = Player.getVisibleX();
+            let centerView = gameConfig.screen.viewWidth / 2;
+
             for(let y = 0; y < collisionTiles.length; y++) {
                 for(let x = 0; x < collisionTiles[y].length; x++) {
                     let tile = collisionTiles[y][x];
 
                     if(tile != null) {
-                        PainterDebugMode.drawSquareOutline({
-                            // not sure why these extra calculations are needed to align properly, but they are
-                            x: x*tile.getWidth() + Player.getVisibleX()- 48 - (Player.getVisibleX()%48),
-                            y: y*tile.getHeight() + Player.getGlobalY() - 48,
-                            w: tile.getWidth(),
-                            h: tile.getHeight(),
-                        },
-                        "yellow");
+
+                        if(playerVisibleX == centerView) {
+                            PainterDebugMode.drawSquareOutline({
+                                x: x*tile.getWidth() + Player.getVisibleX()- (Player.getWidth() + (Player.getGlobalX()%48)),
+                                y: tile.getRow() * tile.getHeight() - tile.getHeight(),
+                                w: tile.getWidth(),
+                                h: tile.getHeight(),
+                            },
+                            "yellow");
+                        }
+                        else {
+                            PainterDebugMode.drawSquareOutline({
+                                // not sure why these extra calculations are needed to align properly, but they are
+                                x: x*tile.getWidth() + Player.getVisibleX()- 48 - (Player.getVisibleX()%48),
+                                y: tile.getRow() * tile.getHeight() - tile.getHeight(),
+                                w: tile.getWidth(),
+                                h: tile.getHeight(),
+                            },
+                            "yellow");
+                        }
+                        
                     }
                 }
             }
@@ -110,8 +126,13 @@ class Scroller extends Component {
         if(gameConfig.debugMode) {
             // draw the background (sky)
             PainterDebugMode.drawVisibleTilesAroundPlayer("background");
+
             // draw the foreground (blocks, bushes, etc...)
             PainterDebugMode.drawVisibleTilesAroundPlayer("foreground");
+
+            // draw items
+            Painter.drawItemsAroundPlayer();
+
             PainterDebugMode.drawPlayer();
         }
         else {
