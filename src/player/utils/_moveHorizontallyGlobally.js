@@ -46,6 +46,9 @@ export default function _moveHorizontallyGlobally(distance) {
     surroundingTiles = getSurroundingTiles(playerObj, playerRadius, layer);
 
     let collisionTiles = collidesAny(playerObj,surroundingTiles);
+
+    // collided while moving horizontally. Check if moving left or right.
+    let dir = (Player.getVelocityX() > 0) ? "RIGHT" : "LEFT";
     
     // if there are no collisions with the player and the intended movement, then upda
     if(!collisionTiles.length) {

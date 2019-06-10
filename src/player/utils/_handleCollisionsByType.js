@@ -7,8 +7,9 @@ import Items from "../../items/Items";
  * For example: if tile is type: ?, then spawns the coin above it.
  * 
  * @param {*} collisionTiles 
+ * @param {*} dir - direction player was moving when they collided 
  */
-export default function _handleCollisionsByType(collisionTiles) {
+export default function _handleCollisionsByType(collisionTiles, dir) {
     for(let i = 0, len = collisionTiles.length; i < len; i++) {
         let tile = collisionTiles[i];
 
@@ -16,19 +17,20 @@ export default function _handleCollisionsByType(collisionTiles) {
             case "BRICK":
                 break;
             case "?":
-                // spawn new coin
-                let coin = new Coin(tile.getX(),
-                                    tile.getY(),
-                                    tile.getCol(),
-                                    tile.getRow() - 1,
-                                    tile.getWidth(),
-                                    tile.getHeight(),
-                                    56,
-                                    1
-                                );
+                // spawn new coin if collided with TOP of the block
+                if(dir == "TOP") {
+                    let coin = new Coin(tile.getX(),
+                                        tile.getY(),
+                                        tile.getCol(), // col of ? block
+                                        tile.getRow() - 1, // row above ? block
+                                        tile.getWidth(),
+                                        tile.getHeight(),
+                                        56, // sprite for coin
+                                        1 // value of coin
+                                    );
 
-                Items.setItem(tile.getCol(), tile.getRow() - 1, coin);
-
+                    Items.setItem(tile.getCol(), tile.getRow() - 1, coin);
+                }
                 break;
             default:
                 break;

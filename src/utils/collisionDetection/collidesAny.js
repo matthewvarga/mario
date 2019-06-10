@@ -30,7 +30,6 @@ export default function collidesAny(obj1, tileSection) {
                     h: tile.getHeight()
                 }
     
-    
                 if(collides(obj1, tileObj) && tile.getState() === "SOLID") {
                     collisionTiles.push(tile);
                 };

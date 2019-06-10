@@ -45,7 +45,9 @@ export default function _moveVerticallyGlobally() {
 
     // player collided with a block. handle it.
     if(collisionTiles.length) {
-        _handleCollisionsByType(collisionTiles);
+        // collided while moving vertically. Check if moving up or down.
+        let dir = (Player.getVelocityY() > 0) ? "BOTTOM" : "TOP";
+        _handleCollisionsByType(collisionTiles, dir);
     }
     
 

@@ -12,6 +12,8 @@ function _isInvalid(obj) {
 
 /**
  * checks for collision between two rectangles.
+ * If no collision, returns false. Otherwise, returns the side
+ * that obj1 collided into obj2 with.
  * 
  * Both objects must contains the following fields:
  *  x: the top left x coord of rectangle
@@ -31,7 +33,6 @@ function _isInvalid(obj) {
  */
 export default function collides(obj1, obj2) {
 
-    // todo fix
     if(_isInvalid(obj1) || _isInvalid(obj2) || 
        _isInvalid(obj1.x) || _isInvalid(obj1.y) || _isInvalid(obj1.w) || _isInvalid(obj1.h) || 
        _isInvalid(obj2.x) || _isInvalid(obj2.y) || _isInvalid(obj2.w) || _isInvalid(obj2.h)) {
