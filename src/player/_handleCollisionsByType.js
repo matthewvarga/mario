@@ -1,7 +1,5 @@
-import Player from "./Player";
-import gameConfig from "../resources/config.json";
-import Map from "../map/Map";
-
+import Coin from "../items/coin/Coin";
+import Items from "../items/Items";
 /**
  * Takes a list of tiles that the player collided with, and
  * handles them appropriately.
@@ -17,8 +15,22 @@ export default function _handleCollisionsByType(collisionTiles) {
         switch(tile.getType()) {
             case "BRICK":
                 break;
-            case "?":
-                // spawn coin
+            case "?": // SPAWN COIN
+                console.log("COLLISION WITH ?");
+                console.log(collisionTiles[i]);
+                // spawn new coin
+                let coin = new Coin(tile.getX(),
+                                    tile.getY(),
+                                    tile.getCol(),
+                                    tile.getRow() - 1,
+                                    tile.getWidth(),
+                                    tile.getHeight(),
+                                    56,
+                                    1
+                                );
+
+                Items.setItem(tile.getCol(), tile.getRow() - 1, coin);
+
                 break;
         }
     }

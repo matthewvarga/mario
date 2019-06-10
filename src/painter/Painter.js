@@ -1,6 +1,7 @@
 import Map from "../map/Map";
 import Player from "../player/Player";
 import gameConfig from "../resources/config.json";
+import Items from "../items/Items";
 
 class Painter {
 
@@ -104,6 +105,43 @@ class Painter {
         }
     }
 
+    /**
+     * draws an Item
+     * @param {*} item 
+     */
+    drawItem(item, horizontalOffset, col, row) {
+        let context = this.getcontext();
+        let spriteWidth = gameConfig.spriteSheet.sprites.width;
+        let spriteHeight = gameConfig.spriteSheet.sprites.height;
+        let numSpritesheetCols = gameConfig.spriteSheet.numCols;
+
+        let playerVisibleX = Player.getVisibleX();
+        let centerView = gameConfig.screen.viewWidth / 2;
+
+
+        let sprite = item.getSprite();
+        
+        let spriteColumn = Math.floor(sprite/numSpritesheetCols);
+        let spriteRow = sprite - (spriteColumn * numSpritesheetCols);
+
+        let spriteY = spriteColumn * spriteHeight;
+        let spriteX = spriteRow * spriteWidth;
+
+
+        if(playerVisibleX === centerView) {
+            context.beginPath(); // need to subtract 1 from items row, sicne we start counting rowsd from 1 in map, but 0 in painter. TODO: double check
+            context.drawImage(this.getSpriteSheet(), spriteX, spriteY, spriteWidth, spriteHeight, col * item.getWidth() + horizontalOffset, (item.getRow() -1) * item.getHeight(), item.getWidth(), item.getHeight());
+            context.closePath();
+
+        }
+        else {
+            context.beginPath();
+            context.drawImage(this.getSpriteSheet(), spriteX, spriteY, spriteWidth, spriteHeight, col * item.getWidth(), (item.getRow() -1) * item.getHeight(), item.getWidth(), item.getHeight());
+            context.closePath();
+        }
+
+    }
+
     drawVisibleTilesAroundPlayer(layerName) {
         // select the layer we will be drawing
         let layer = Map.getLayer(layerName);
@@ -143,6 +181,79 @@ class Painter {
         }
 
         this.drawTiles(section, -(playerGlobalX%48));
+    }
+
+    // draws the items visible to the player.
+    // TODO: clean up
+    drawItemsAroundPlayer() {
+
+        if (Items.getNumItems() == 0) {
+            return;
+        }
+        // get players visible x coord and their global x coord
+        let playerVisibleX = Player.getVisibleX();
+        let playerGlobalX = Player.getGlobalX();
+
+        // calculate the maps max width
+        let mapMaxWidth = (Map.getNumCols() - 1) * gameConfig.map.tiles.width;
+
+        // calculate the center of the visible screen
+        let centerView = gameConfig.screen.viewWidth / 2;
+
+        // select which column the player is in
+        let playerCol = Math.floor(playerGlobalX/48);
+
+        // get the number of buffer columns from game config
+        let numBufferCols = gameConfig.screen.bufferCols;
+
+        let startCol = 0;
+        let endCol = 0;
+        let startRow = 0;
+        let endRow = 0;
+
+        // player is in the center of screen, even number of cols on each side
+        if(playerVisibleX == centerView) {
+            startCol = playerCol - Math.floor(Map.getNumVisibleCols()/2);
+            endCol = playerCol + Math.floor(Map.getNumVisibleCols()/2) + numBufferCols;
+            startRow = 0;
+            endRow = Map.getNumVisibleRows();
+        }
+        // player is at end of screen (on the last visible tiles)
+        else if(playerGlobalX >= (mapMaxWidth - centerView)) {
+            startCol = Map.getNumCols() - Map.getNumVisibleCols();
+            endCol = Map.getNumCols();
+            startRow = 0;
+            endRow = Map.getNumVisibleRows()
+        }
+        // player is at start of screen (on the first tiles)
+        else {
+            startCol = 0;
+            endCol = Map.getNumVisibleCols() + numBufferCols;
+            startRow = 0;
+            endRow = Map.getNumVisibleRows();
+        }
+
+        for(let r = startRow; r <= endRow; r++) {
+            for(let c = startCol; c <= endCol; c++) {
+                let item = Items.getItem(c, r);
+                if(item) {
+                   
+                    // the game map column the player is currently in
+                    let playerCol = Math.floor(Player.getGlobalX() / 48);
+
+                    // the screen column the player is currently in
+                    let playerVisibleCol = Math.floor(Player.getVisibleX() / 48);
+                    
+                    // the number of columns between the player and the item
+                    let itemColOffset = (item.getCol() -1) - playerCol; // need to subtract extra 1 becuse items count start from 1 ?? TODO: check/fix
+
+                    // the screen column the item is in
+                    let itemCol = playerVisibleCol + itemColOffset;
+
+                    this.drawItem(item, -(playerGlobalX%48), itemCol);
+                }
+            }
+        }
     }
 
     drawPlayer() {

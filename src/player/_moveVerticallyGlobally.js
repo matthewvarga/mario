@@ -3,6 +3,7 @@ import Map from "../map/Map";
 import getSurroundingTiles from "../utils/getSurroundingTiles";
 import collidesAny from "../utils/collisionDetection/collidesAny";
 import gameConfig from "../resources/config.json";
+import _handleCollisionsByType from "./_handleCollisionsByType";
 
 /**
  * private method, sets the global y position of the player
@@ -42,12 +43,9 @@ export default function _moveVerticallyGlobally() {
     surroundingTiles = getSurroundingTiles(playerObj, playerRadius, layer);
     let collisionTiles = collidesAny(playerObj, surroundingTiles);
 
+    // player collided with a block. handle it.
     if(collisionTiles.length) {
-        for(let i = 0, len = collisionTiles.length; i < len; i++) {
-            if (collisionTiles[i].getType() === "?") {
-                console.log("COLLISION WITH ?");
-            }
-        }
+        _handleCollisionsByType(collisionTiles);
     }
     
 

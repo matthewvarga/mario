@@ -28,7 +28,7 @@ class Scroller extends Component {
             canvas: null
         }
 
-        // load background and foreground
+        // load background and foreground layers
         let backgroundLayer = new Layer(backgroundMap.tiles, 48, 48);
         let foregroundLayer = new Layer(foregroundMap.tiles, 48, 48);
         Map.setLayer("background", backgroundLayer);
@@ -117,8 +117,13 @@ class Scroller extends Component {
         else {
             // draw the background (sky)
             Painter.drawVisibleTilesAroundPlayer("background");
+
             // draw the foreground (blocks, bushes, etc...)
             Painter.drawVisibleTilesAroundPlayer("foreground");
+
+            // draw items
+            Painter.drawItemsAroundPlayer();
+
             Painter.drawPlayer();
         }
         
