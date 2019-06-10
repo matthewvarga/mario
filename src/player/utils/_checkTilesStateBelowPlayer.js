@@ -1,6 +1,6 @@
-import Player from "./Player";
-import gameConfig from "../resources/config.json";
-import Map from "../map/Map";
+import Player from "../Player";
+import gameConfig from "../../resources/config.json";
+import Map from "../../map/Map";
 
 /**
  * checks the type of the tile beneath the players current position.

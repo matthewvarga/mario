@@ -1,9 +1,9 @@
 import gameConfig from "../resources/config.json";
-import _moveVerticallyGlobally from "./_moveVerticallyGlobally";
-import _moveVerticallyVisibly from "./_moveVerticallyVisibly";
-import _moveHorizontallyGlobally from "./_moveHorizontallyGlobally";
-import _moveHorizontallyVisibily from "./_moveHorizontallyVisibily";
-import _checkTileTypesBelowPlayer from "./_checkTilesStateBelowPlayer";
+import _moveVerticallyGlobally from "./utils/_moveVerticallyGlobally";
+import _moveVerticallyVisibly from "./utils/_moveVerticallyVisibly";
+import _moveHorizontallyGlobally from "./utils/_moveHorizontallyGlobally";
+import _moveHorizontallyVisibily from "./utils/_moveHorizontallyVisibily";
+import _checkTileTypesBelowPlayer from "./utils/_checkTilesStateBelowPlayer";
 
 class Player {
 
@@ -126,7 +126,7 @@ class Player {
         let tileTypesBelowPlayer = _checkTileTypesBelowPlayer();
     
         // if the player is standing still, and is on a solid tile, either partially or fully, then begin jump
-        if(this.getVelocityY() == 0 && (tileTypesBelowPlayer[0] === "SOLID" || tileTypesBelowPlayer[1] === "SOLID")) {
+        if(this.getVelocityY() === 0 && (tileTypesBelowPlayer[0] === "SOLID" || tileTypesBelowPlayer[1] === "SOLID")) {
             this.setVelocityY(this.getJumpVelocity());
         }
     }

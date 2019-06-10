@@ -1,5 +1,5 @@
-import Coin from "../items/coin/Coin";
-import Items from "../items/Items";
+import Coin from "../../items/coin/Coin";
+import Items from "../../items/Items";
 /**
  * Takes a list of tiles that the player collided with, and
  * handles them appropriately.
@@ -29,6 +29,8 @@ export default function _handleCollisionsByType(collisionTiles) {
 
                 Items.setItem(tile.getCol(), tile.getRow() - 1, coin);
 
+                break;
+            default:
                 break;
         }
     }

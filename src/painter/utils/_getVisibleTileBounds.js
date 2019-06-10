@@ -43,7 +43,7 @@ export default function _getVisibleTileBounds() {
     let numBufferCols = gameConfig.screen.bufferCols;
     
     // player is in the center of screen, even number of cols on each side
-    if(playerVisibleX == centerView) {
+    if(playerVisibleX === centerView) {
         bounds.startCol = playerCol - Math.floor(Map.getNumVisibleCols()/2);
         bounds.endCol = playerCol + Math.floor(Map.getNumVisibleCols()/2) + numBufferCols;
         bounds.startRow = 0;

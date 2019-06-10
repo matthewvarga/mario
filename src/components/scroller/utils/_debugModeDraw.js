@@ -1,8 +1,4 @@
-import Map from "../../../map/Map";
-import Player from "../../../player/Player";
 import PainterDebugMode from "../../../painter/PainterDebugMode";
-import gameConfig from "../../../resources/config.json";
-import getSurroundingTiles from "../../../utils/getSurroundingTiles";
 
 /**
  * draws yellow outline around surrounding tiles used to check for collision with the player

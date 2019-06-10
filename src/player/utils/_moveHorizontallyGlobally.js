@@ -1,8 +1,8 @@
-import Player from "./Player";
-import gameConfig from "../resources/config.json";
-import getSurroundingTiles from "../utils/getSurroundingTiles";
-import collidesAny from "../utils/collisionDetection/collidesAny";
-import Map from "../map/Map";
+import Player from "../Player";
+import gameConfig from "../../resources/config.json";
+import getSurroundingTiles from "../../utils/getSurroundingTiles";
+import collidesAny from "../../utils/collisionDetection/collidesAny";
+import Map from "../../map/Map";
 
 /**
  * private method, that sets the global x value of the player.

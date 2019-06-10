@@ -28,7 +28,7 @@ export default function _debugModeDrawCollisionDetectionTiles() {
 
             if(tile != null) {
 
-                if(playerVisibleX == centerView) {
+                if(playerVisibleX === centerView) {
                     PainterDebugMode.drawSquareOutline({
                         x: x*tile.getWidth() + Player.getVisibleX()- (Player.getWidth() + (Player.getGlobalX()%48)),
                         y: tile.getRow() * tile.getHeight() - tile.getHeight(),

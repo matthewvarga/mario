@@ -1,5 +1,5 @@
-import Player from "./Player";
-import gameConfig from "../resources/config.json";
+import Player from "../Player";
+import gameConfig from "../../resources/config.json";
 
 export default function _moveVerticallyVisibly() {
     let globalY = Player.getGlobalY();

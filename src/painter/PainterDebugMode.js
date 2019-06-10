@@ -202,7 +202,7 @@ class Painter {
      */
     drawItemsAroundPlayer() {
         // no items around the player. 
-        if (Items.getNumItems() == 0) {
+        if (Items.getNumItems() === 0) {
             return;
         }
         // get visible rows and cols

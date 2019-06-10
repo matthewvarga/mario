@@ -1,5 +1,5 @@
-import Player from "./Player";
-import gameConfig from "../resources/config.json";
+import Player from "../Player";
+import gameConfig from "../../resources/config.json";
 
 /**
 * private method, that sets the visible x value of the player

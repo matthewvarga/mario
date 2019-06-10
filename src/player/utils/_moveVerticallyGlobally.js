@@ -1,8 +1,8 @@
-import Player from "./Player";
-import Map from "../map/Map";
-import getSurroundingTiles from "../utils/getSurroundingTiles";
-import collidesAny from "../utils/collisionDetection/collidesAny";
-import gameConfig from "../resources/config.json";
+import Player from "../Player";
+import Map from "../../map/Map";
+import getSurroundingTiles from "../../utils/getSurroundingTiles";
+import collidesAny from "../../utils/collisionDetection/collidesAny";
+import gameConfig from "../../resources/config.json";
 import _handleCollisionsByType from "./_handleCollisionsByType";
 
 /**
