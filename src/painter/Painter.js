@@ -174,7 +174,7 @@ class Painter {
                     let playerVisibleCol = Math.floor(Player.getVisibleX() / 48);
                     
                     // the number of columns between the player and the item
-                    let itemColOffset = (item.getCol() -1) - playerCol; // need to subtract extra 1 becuse items count start from 1 ?? TODO: check/fix
+                    let itemColOffset = (item.getCol() - 1) - playerCol; // need to subtract extra 1 becuse items count start from 1 ?? TODO: check/fix
 
                     // the screen column the item is in
                     let itemCol = playerVisibleCol + itemColOffset;

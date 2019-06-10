@@ -1,9 +1,9 @@
 import Player from "../Player";
 import Map from "../../map/Map";
-import getSurroundingTiles from "../../utils/getSurroundingTiles";
-import collidesAny from "../../utils/collisionDetection/collidesAny";
 import gameConfig from "../../resources/config.json";
 import _handleCollisionsByType from "./_handleCollisionsByType";
+import _handleTileCollisionVertically from "./utils/_handleTileCollisionVertically";
+import _handleItemCollision from "./utils/_handleItemCollision";
 
 /**
  * private method, sets the global y position of the player
@@ -16,9 +16,7 @@ export default function _moveVerticallyGlobally() {
     let newY = Player.getGlobalY() + Player.getVelocityY();
 
     let mapMaxHeight = (gameConfig.map.numRows -1) * gameConfig.map.tiles.height;
-    let playerRadius = Player.getCollisionDetectionRadius();
     let  layer = Map.getLayer("foreground");
-    let surroundingTiles;
 
     let playerObj = {
         x: Player.getGlobalX(),
@@ -40,34 +38,10 @@ export default function _moveVerticallyGlobally() {
         playerObj.y = newY;
     }
 
-    surroundingTiles = getSurroundingTiles(playerObj, playerRadius, layer);
-    let collisionTiles = collidesAny(playerObj, surroundingTiles);
-
-    // player collided with a block. handle it.
-    if(collisionTiles.length) {
-        // collided while moving vertically. Check if moving up or down.
-        let dir = (Player.getVelocityY() > 0) ? "BOTTOM" : "TOP";
-        _handleCollisionsByType(collisionTiles, dir);
-    }
+    // check and handle collision with tiles
+    _handleTileCollisionVertically(playerObj, layer);
     
+    // check and handle collision with items
+    _handleItemCollision();
 
-    // if there are no collisions with the player and the intended movement, then update
-    if(!collisionTiles.length) {
-        Player.setGlobalY(playerObj.y);
-    } 
-    // collision
-    // TODO: double check it is fine to use first collision tile only
-    else {
-        
-        // while moving up
-        if (Player.getVelocityY() < 0) {
-            Player.setGlobalY(collisionTiles[0].getY() + collisionTiles[0].getHeight());
-        } 
-        // while falling down
-        else {
-            Player.setGlobalY(collisionTiles[0].getY() - Player.getHeight());
-        }
-        // set players velocity to 0
-        Player.setVelocityY(0);
-    }
 }

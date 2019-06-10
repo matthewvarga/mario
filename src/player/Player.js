@@ -29,6 +29,8 @@ class Player {
         this._reducedJumpVelocity = gameConfig.player.reducedJumpVelocity;
         this._horizontalMovement = 0; // 1 = right, -1 = left, 0 = none
         this._verticalMovement = 0; // 1 = up, -1 = down, 0 = none
+
+        this._score = 0;
     }
 
     getWidth() {
@@ -117,6 +119,18 @@ class Player {
 
     getReducedJumpVelocity() {
         return this._reducedJumpVelocity;
+    }
+
+    getScore() {
+        return this._score;
+    }
+
+    setScore(score) {
+        this._score = score;
+    }
+
+    updateScore(value) {
+        this._score += value;
     }
 
     /**

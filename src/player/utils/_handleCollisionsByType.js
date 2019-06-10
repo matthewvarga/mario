@@ -20,11 +20,15 @@ export default function _handleCollisionsByType(collisionTiles, dir) {
                 // spawn new coin if collided with TOP of the block
                 if(dir == "TOP") {
                     let coin = new Coin(tile.getX(),
-                                        tile.getY(),
+                                        tile.getY() - tile.getHeight(), // tile above the ? block
                                         tile.getCol(), // col of ? block
                                         tile.getRow() - 1, // row above ? block
                                         tile.getWidth(),
                                         tile.getHeight(),
+                                        tile.getX() + 9, // hitbox x
+                                        tile.getY() - tile.getHeight() + 6, // hitbox y
+                                        tile.getWidth() - 18, // hitbox width
+                                        tile.getHeight() - 6, // hitbox height
                                         56, // sprite for coin
                                         1 // value of coin
                                     );

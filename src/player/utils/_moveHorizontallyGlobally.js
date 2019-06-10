@@ -1,8 +1,8 @@
 import Player from "../Player";
 import gameConfig from "../../resources/config.json";
-import getSurroundingTiles from "../../utils/getSurroundingTiles";
-import collidesAny from "../../utils/collisionDetection/collidesAny";
 import Map from "../../map/Map";
+import _handleTileCollisionHorizontally from "./utils/_handleTileCollisionHorizontally";
+import _handleItemCollision from "./utils/_handleItemCollision";
 
 /**
  * private method, that sets the global x value of the player.
@@ -16,11 +16,10 @@ export default function _moveHorizontallyGlobally(distance) {
     // get width of the game map
     let mapMaxWidth = (gameConfig.map.numCols - 1) * gameConfig.map.tiles.width;
     // get player radius
-    let playerRadius = Player.getCollisionDetectionRadius();
+
     // get foreground layer
     let layer = Map.getLayer("foreground");
 
-    let surroundingTiles;
     // create a player object containing the players position and size
     let playerObj = {
         x: null,
@@ -42,22 +41,9 @@ export default function _moveHorizontallyGlobally(distance) {
         playerObj.x = newX;
     }
 
-    // retrieve the tiles surrounding the player
-    surroundingTiles = getSurroundingTiles(playerObj, playerRadius, layer);
+    // check and handle collision with tiles
+    _handleTileCollisionHorizontally(playerObj, distance, layer);
 
-    let collisionTiles = collidesAny(playerObj,surroundingTiles);
-
-    // collided while moving horizontally. Check if moving left or right.
-    let dir = (Player.getVelocityX() > 0) ? "RIGHT" : "LEFT";
-    
-    // if there are no collisions with the player and the intended movement, then upda
-    if(!collisionTiles.length) {
-        Player.setGlobalX(playerObj.x);
-    } 
-    // collision
-    else {
-        // align the player on proper side of block depending on their direction
-        // TODO: double check that using first collision tile is fine
-        (distance < 0) ? Player.setGlobalX(collisionTiles[0].getX() + Player.getWidth()): Player.setGlobalX(collisionTiles[0].getX() - Player.getWidth());
-    }
+    // check and handle collision with items
+    _handleItemCollision();
 }
