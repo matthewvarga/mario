@@ -2,7 +2,7 @@
 import gameConfig from "../../resources/config.json";
 
 /**
- * provided a sprite value, returns teh x coordinate on the spritesheet.
+ * provided a sprite value, returns the y coordinate on the spritesheet.
  * 
  * @param {*} sprite - int value associated with sprite 
  */

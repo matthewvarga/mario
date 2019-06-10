@@ -1,6 +1,9 @@
 import Map from "../map/Map";
 import Player from "../player/Player";
 import gameConfig from "../resources/config.json";
+import _getSpriteXCoord from "./utils/_getSpriteXCoord";
+import _getSpriteYCoord from "./utils/_getSpriteYCoord";
+import _getVisibleTileBounds from "./utils/_getVisibleTileBounds";
 
 class Painter {
 
@@ -85,7 +88,6 @@ class Painter {
         let context = this.getcontext();
         let spriteWidth = gameConfig.spriteSheet.sprites.width;
         let spriteHeight = gameConfig.spriteSheet.sprites.height;
-        let numSpritesheetCols = gameConfig.spriteSheet.numCols;
 
         let playerVisibleX = Player.getVisibleX();
         let centerView = gameConfig.screen.viewWidth / 2;
@@ -110,14 +112,9 @@ class Painter {
 
                 // do nothing tile is null, as there is nothing to be drawn
                 if (tile != null) {
-                    let sprite = tiles[y][x].getSprite();
-                    
-                    let spriteColumn = Math.floor(sprite/numSpritesheetCols);
-                    let spriteRow = sprite - (spriteColumn * numSpritesheetCols);
-    
-                    let spriteY = spriteColumn * spriteHeight;
-                    let spriteX = spriteRow * spriteWidth;
-    
+                    let sprite = tile.getSprite();
+                    let spriteY = _getSpriteYCoord(sprite);
+                    let spriteX = _getSpriteXCoord(sprite);
     
                     if(playerVisibleX === centerView) {
                         context.beginPath();
@@ -162,42 +159,12 @@ class Painter {
         // select the layer we will be drawing
         let layer = Map.getLayer(layerName);
 
-        // get players visible x coord and their global x coord
-        let playerVisibleX = Player.getVisibleX();
-        let playerGlobalX = Player.getGlobalX();
+       // get visible rows and cols
+       let bounds = _getVisibleTileBounds();
 
-        // calculate the maps max width
-        let mapMaxWidth = (Map.getNumCols() - 1) * gameConfig.map.tiles.width;
-
-        // calculate the center of the visible screen
-        let centerView = gameConfig.screen.viewWidth / 2;
-
-        // select which column the player is in
-        let playerCol = Math.floor(playerGlobalX/48);
-
-        let section;
-
-        // get the number of buffer columns from game config
-        let numBufferCols = gameConfig.screen.bufferCols;
-
-        // player is in the center of screen, even number of cols on each side
-        if(playerVisibleX == centerView) {
-            let startCol = playerCol - Math.floor(Map.getNumVisibleCols()/2);
-            let endCol = playerCol + Math.floor(Map.getNumVisibleCols()/2) + numBufferCols;
-
-            section = layer.getSection(startCol, endCol, 0, Map.getNumVisibleRows());
-        }
-        // player is at end of screen (on the last visible tiles)
-        else if(playerGlobalX >= (mapMaxWidth - centerView)) {
-            section = layer.getSection(Map.getNumCols() - Map.getNumVisibleCols() , Map.getNumCols(), 0, Map.getNumVisibleRows());
-        }
-        // player is at start of screen (on the first tiles)
-        else {
-            section = layer.getSection(0, Map.getNumVisibleCols() + numBufferCols, 0, Map.getNumVisibleRows());
-        }
-
-        this.drawTiles(section, -(playerGlobalX%48), layerName);
-    }
+       let section = layer.getSection(bounds.startCol, bounds.endCol, bounds.startRow, bounds.endRow);
+       this.drawTiles(section, -(Player.getGlobalX()%48), layerName);
+   }
 
     drawPlayer() {
         let context = this.getcontext();
