@@ -15,9 +15,7 @@ export default function _handleCollisionsByType(collisionTiles) {
         switch(tile.getType()) {
             case "BRICK":
                 break;
-            case "?": // SPAWN COIN
-                console.log("COLLISION WITH ?");
-                console.log(collisionTiles[i]);
+            case "?":
                 // spawn new coin
                 let coin = new Coin(tile.getX(),
                                     tile.getY(),

@@ -8,15 +8,15 @@ import gameConfig from "../../resources/config.json";
 import Painter from "../../painter/Painter";
 import PainterDebugMode from "../../painter/PainterDebugMode";
 
-import getSurroundingTiles from "../../utils/getSurroundingTiles";
-import Player from "../../player/Player";
-
 import backgroundMap from "../../resources/mapBackground.json";
 import foregroundMap from "../../resources/mapForeground.json";
 
 import updatePlayerMovementOnPress from "../../player/updatePlayerMovementOnPress";
 import updatePlayerMovementOnRelase from "../../player/updatePlayerMovementOnRelase";
 import updatePlayerPosition from "../../player/updatePlayerPosition";
+
+import _debugModeDrawCollisionDetectionTiles from "./utils/_debugModeDrawCollisionDetectionTiles";
+import _debugModeDraw from "./utils/_debugModeDraw";
 import './index.css';
 
 class Scroller extends Component {
@@ -50,11 +50,15 @@ class Scroller extends Component {
      * 
      * 1) updates players position
      * 2) updates canvas
+     *      a) drawing background layer
+     *      b) drawing foreground layer
+     *      c) drawing items
+     *      d) drawing player
      */
     onTick() {
         updatePlayerPosition();
 
-        if(this.state.context && this.state.canvas && Painter.getSpriteSheet() && PainterDebugMode.getSpriteSheet()) {
+        if(this.state.context && this.state.canvas && Painter.getSpriteSheet()) {
             this.draw();
         }
 
@@ -63,52 +67,8 @@ class Scroller extends Component {
         //                DEBUG MODE                     //
         //                                               //
         ///////////////////////////////////////////////////
-        // draws yellow outline around surrounding tiles used to check for collision with the player
-        // needs to be done here instead of in collision checking, as that is done before the map is
-        // drawn, so the oulines would be drawn over.
-        // still a little glitchy and could use some work.
         if(gameConfig.debugMode && PainterDebugMode.getSpriteSheet()) {
-            let collisionTiles = getSurroundingTiles({
-                x: Player.getGlobalX(),
-                y: Player.getGlobalY(),
-                h: Player.getHeight(),
-                w: Player.getWidth()
-            },
-            Player.getCollisionDetectionRadius(),
-            Map.getLayer("foreground"));
-
-            let playerVisibleX = Player.getVisibleX();
-            let centerView = gameConfig.screen.viewWidth / 2;
-
-            for(let y = 0; y < collisionTiles.length; y++) {
-                for(let x = 0; x < collisionTiles[y].length; x++) {
-                    let tile = collisionTiles[y][x];
-
-                    if(tile != null) {
-
-                        if(playerVisibleX == centerView) {
-                            PainterDebugMode.drawSquareOutline({
-                                x: x*tile.getWidth() + Player.getVisibleX()- (Player.getWidth() + (Player.getGlobalX()%48)),
-                                y: tile.getRow() * tile.getHeight() - tile.getHeight(),
-                                w: tile.getWidth(),
-                                h: tile.getHeight(),
-                            },
-                            "yellow");
-                        }
-                        else {
-                            PainterDebugMode.drawSquareOutline({
-                                // not sure why these extra calculations are needed to align properly, but they are
-                                x: x*tile.getWidth() + Player.getVisibleX()- 48 - (Player.getVisibleX()%48),
-                                y: tile.getRow() * tile.getHeight() - tile.getHeight(),
-                                w: tile.getWidth(),
-                                h: tile.getHeight(),
-                            },
-                            "yellow");
-                        }
-                        
-                    }
-                }
-            }
+            _debugModeDrawCollisionDetectionTiles();
         }
     }
 
@@ -118,24 +78,7 @@ class Scroller extends Component {
      * starts by drawing the background layer, then draws the player on top.
      */
     draw() {
-        ///////////////////////////////////////////////////
-        //                                               //
-        //                DEBUG MODE                     //
-        //                                               //
-        ///////////////////////////////////////////////////
-        if(gameConfig.debugMode) {
-            // draw the background (sky)
-            PainterDebugMode.drawVisibleTilesAroundPlayer("background");
-
-            // draw the foreground (blocks, bushes, etc...)
-            PainterDebugMode.drawVisibleTilesAroundPlayer("foreground");
-
-            // draw items
-            Painter.drawItemsAroundPlayer();
-
-            PainterDebugMode.drawPlayer();
-        }
-        else {
+        if(!gameConfig.debugMode) {
             // draw the background (sky)
             Painter.drawVisibleTilesAroundPlayer("background");
 
@@ -145,7 +88,16 @@ class Scroller extends Component {
             // draw items
             Painter.drawItemsAroundPlayer();
 
+            // draw player
             Painter.drawPlayer();
+        }
+        ///////////////////////////////////////////////////
+        //                                               //
+        //                DEBUG MODE                     //
+        //                                               //
+        ///////////////////////////////////////////////////
+        else {
+            _debugModeDraw();
         }
         
     }
