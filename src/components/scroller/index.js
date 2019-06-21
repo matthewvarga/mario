@@ -7,6 +7,7 @@ import Layer from "../../layer/Layer";
 import gameConfig from "../../resources/config.json";
 import Painter from "../../painter/Painter";
 import PainterDebugMode from "../../painter/PainterDebugMode";
+import DebugPanel from "./components/debugPanel/index";
 
 import backgroundMap from "../../resources/mapBackground.json";
 import foregroundMap from "../../resources/mapForeground.json";
@@ -18,6 +19,7 @@ import updatePlayerPosition from "../../player/updatePlayerPosition";
 import _debugModeDrawCollisionDetectionTiles from "./utils/_debugModeDrawCollisionDetectionTiles";
 import _debugModeDraw from "./utils/_debugModeDraw";
 import './index.css';
+import Player from '../../player/Player';
 
 class Scroller extends Component {
     constructor(props) {
@@ -69,6 +71,9 @@ class Scroller extends Component {
         ///////////////////////////////////////////////////
         if(gameConfig.debugMode && PainterDebugMode.getSpriteSheet()) {
             _debugModeDrawCollisionDetectionTiles();
+            // get debug panel and tell it to update
+            let dp = this.refs["debugPanel"];
+            dp.update();
         }
     }
 
@@ -131,12 +136,24 @@ class Scroller extends Component {
             PainterDebugMode.setCanvas(this.state.canvas);
         }
 
+        if(!gameConfig.debugMode) {
+            return (
+                <div className="scroller">
+                    <Engine onTick={() => this.onTick()} onKeyDown={(key) => this.onKeyDown(key)} onKeyUp={(key) => this.onKeyUp(key)}/>
+                    <Board/>
+                </div>
+            );
+        }
+        
         return (
             <div className="scroller">
                 <Engine onTick={() => this.onTick()} onKeyDown={(key) => this.onKeyDown(key)} onKeyUp={(key) => this.onKeyUp(key)}/>
                 <Board/>
+                <DebugPanel ref={"debugPanel"} />
             </div>
         );
+
+        
     }
 }
 

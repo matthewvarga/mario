@@ -1,0 +1,26 @@
+.debug-panel {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    margin-left:10px;
+    padding: 10px;
+    border: 1px solid black;
+    
+    .debug-heading {
+        text-align: center;
+    }
+
+    .debug-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .debug-title {
+        margin: 0;
+    }
+
+    .debug-value {
+        margin: 5px 0 5px 10px;
+    }
+}

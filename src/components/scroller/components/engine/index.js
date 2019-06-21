@@ -44,7 +44,7 @@ class Engine extends Component {
     }
 
     render() {
-        return <div>hello world</div>
+        return null
     }
 }
 
