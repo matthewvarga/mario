@@ -7,6 +7,8 @@ class DebugPanel extends Component {
         super(props);
 
         this.state = {
+            playerHorizontalDirection: "None",
+            playerVerticalDirection: "None",
             playerHorizontalVelocity: 0,
             playerVerticalVelocity: 0,
             playerGlobalX: 0,
@@ -19,6 +21,7 @@ class DebugPanel extends Component {
 
     }
 
+    // visually display how many frames were drawn in the last second
     componentDidMount() {
         this.interval = setInterval(() => {
             let temp = this.framesCounter;
@@ -29,6 +32,7 @@ class DebugPanel extends Component {
         }, 1000)
     }
 
+    // clear interval for updating frames
     componentWillUnmount() {
         clearInterval(this.interval);
     }
@@ -37,6 +41,8 @@ class DebugPanel extends Component {
         console.log(Player.getVelocityX());
         this.framesCounter += 1;
         this.setState((prevState, props) => ({
+            playerHorizontalDirection: (prevState.playerGlobalX - Player.getGlobalX()) != 0 ? ((prevState.playerGlobalX - Player.getGlobalX()) > 0 ? "Left" : "Right") : "None",
+            playerVerticalDirection: (prevState.playerGlobalY - Player.getGlobalY()) != 0 ? ((prevState.playerGlobalY - Player.getGlobalY()) > 0 ? "Up" : "Down") : "None",
             playerHorizontalVelocity: Player.getVelocityX(),
             playerVerticalVelocity: Player.getVelocityY(),
             playerGlobalX: Player.getGlobalX(),
@@ -48,21 +54,36 @@ class DebugPanel extends Component {
         return (
             <div className={"debug-panel"}>
                 <h1 className={"debug-heading"}>Degub Info</h1>
-                <div className={"debug-row"}>
-                    <h3 className={"debug-title"}> Player Horizontal Velocity: </h3>
-                    <p className={"debug-value"}>{this.state.playerHorizontalVelocity}</p>
+
+                <h2 className={"debug-section-title"}> General</h2>
+                <div className={"debug-section"}>
+                    <div className={"debug-row"}>
+                        <h3 className={"debug-title"}> FPS: </h3>
+                        <p className={"debug-value"}>{this.state.FPS}</p>
+                    </div>
                 </div>
-                <div className={"debug-row"}>
-                    <h3 className={"debug-title"}> Player Vertical Velocity: </h3>
-                    <p className={"debug-value"}>{this.state.playerVerticalVelocity}</p>
-                </div>
-                <div className={"debug-row"}>
-                    <h3 className={"debug-title"}> Player Global (x, y): </h3>
-                    <p className={"debug-value"}>({this.state.playerGlobalX}, {this.state.playerGlobalY})</p>
-                </div>
-                <div className={"debug-row"}>
-                    <h3 className={"debug-title"}> FPS: </h3>
-                    <p className={"debug-value"}>{this.state.FPS}</p>
+                <h2 className={"debug-section-title"}> Player Movement</h2>
+                <div className={"debug-section"}>
+                    <div className={"debug-row"}>
+                        <h3 className={"debug-title"}> Player Horizontal Direction: </h3>
+                        <p className={"debug-value"}>{this.state.playerHorizontalDirection}</p>
+                    </div>
+                    <div className={"debug-row"}>
+                        <h3 className={"debug-title"}> Player Vertical Direction: </h3>
+                        <p className={"debug-value"}>{this.state.playerVerticalDirection}</p>
+                    </div>
+                    <div className={"debug-row"}>
+                        <h3 className={"debug-title"}> Player Horizontal Velocity: </h3>
+                        <p className={"debug-value"}>{this.state.playerHorizontalVelocity}</p>
+                    </div>
+                    <div className={"debug-row"}>
+                        <h3 className={"debug-title"}> Player Vertical Velocity: </h3>
+                        <p className={"debug-value"}>{this.state.playerVerticalVelocity}</p>
+                    </div>
+                    <div className={"debug-row"}>
+                        <h3 className={"debug-title"}> Player Global (x, y): </h3>
+                        <p className={"debug-value"}>({this.state.playerGlobalX}, {this.state.playerGlobalY})</p>
+                    </div>
                 </div>
             </div>
         );
