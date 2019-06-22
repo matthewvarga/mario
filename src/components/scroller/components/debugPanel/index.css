@@ -33,16 +33,19 @@
 
 .debug-panel .debug-title {
   margin: 0;
+  font-size: 14px;
 }
 
 .debug-panel .debug-value {
   margin: 5px 0 5px 10px;
+  font-size: 14px;
 }
 
 .debug-panel .debug-section-title {
   margin: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid black;
+  font-size: 16px;
 }
 
 .debug-panel .debug-section {

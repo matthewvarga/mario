@@ -19,7 +19,6 @@ import updatePlayerPosition from "../../player/updatePlayerPosition";
 import _debugModeDrawCollisionDetectionTiles from "./utils/_debugModeDrawCollisionDetectionTiles";
 import _debugModeDraw from "./utils/_debugModeDraw";
 import './index.css';
-import Player from '../../player/Player';
 
 class Scroller extends Component {
     constructor(props) {
@@ -145,6 +144,11 @@ class Scroller extends Component {
             );
         }
         
+        ///////////////////////////////////////////////////
+        //                                               //
+        //                DEBUG MODE                     //
+        //                                               //
+        ///////////////////////////////////////////////////
         return (
             <div className="scroller">
                 <Engine onTick={() => this.onTick()} onKeyDown={(key) => this.onKeyDown(key)} onKeyUp={(key) => this.onKeyUp(key)}/>

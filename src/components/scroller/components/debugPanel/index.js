@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './index.css';
+import gameConfig from "../../../../resources/config.json";
 import Player from '../../../../player/Player';
 
 class DebugPanel extends Component {
@@ -13,9 +14,12 @@ class DebugPanel extends Component {
             playerVerticalVelocity: 0,
             playerGlobalX: 0,
             playerGlobalY: 0,
+            playerVisibleX: 0,
+            playerVisibleY: 0,
             FPS: 0
         }
 
+        // counts number of frames per second
         this.framesCounter = 0;
         
 
@@ -46,7 +50,9 @@ class DebugPanel extends Component {
             playerHorizontalVelocity: Player.getVelocityX(),
             playerVerticalVelocity: Player.getVelocityY(),
             playerGlobalX: Player.getGlobalX(),
-            playerGlobalY: Player.getGlobalY()
+            playerGlobalY: Player.getGlobalY(),
+            playerVisibleX: Player.getVisibleX(),
+            playerVisibleY: Player.getVisibleY()
         }))
     }
 
@@ -62,6 +68,38 @@ class DebugPanel extends Component {
                         <p className={"debug-value"}>{this.state.FPS}</p>
                     </div>
                 </div>
+                <div className={"debug-section"}>
+                    <div className={"debug-row"}>
+                        <h3 className={"debug-title"}> Map Size (numCols, numRows): </h3>
+                        <p className={"debug-value"}>({gameConfig.map.numCols}, {gameConfig.map.numRows})</p>
+                    </div>
+                </div>
+                <div className={"debug-section"}>
+                    <div className={"debug-row"}>
+                        <h3 className={"debug-title"}> Visible Map Size (numCols, numRows): </h3>
+                        <p className={"debug-value"}>({gameConfig.map.numVisibleCols}, {gameConfig.map.numVisibleRows})</p>
+                    </div>
+                </div>
+                <div className={"debug-section"}>
+                    <div className={"debug-row"}>
+                        <h3 className={"debug-title"}> Screen Size (Width * Height): </h3>
+                        <p className={"debug-value"}>{gameConfig.screen.viewWidth} x {gameConfig.screen.viewHeight}</p>
+                    </div>
+                </div>
+                <div className={"debug-section"}>
+                    <div className={"debug-row"}>
+                        <h3 className={"debug-title"}> Tile size (Width * Height): </h3>
+                        <p className={"debug-value"}>{gameConfig.map.tiles.width} x {gameConfig.map.tiles.height}</p>
+                    </div>
+                </div>
+                <div className={"debug-section"}>
+                    <div className={"debug-row"}>
+                        <h3 className={"debug-title"}> Buffer Columns: </h3>
+                        <p className={"debug-value"}>{gameConfig.screen.bufferCols}</p>
+                    </div>
+                </div>
+
+                
                 <h2 className={"debug-section-title"}> Player Movement</h2>
                 <div className={"debug-section"}>
                     <div className={"debug-row"}>
@@ -83,6 +121,10 @@ class DebugPanel extends Component {
                     <div className={"debug-row"}>
                         <h3 className={"debug-title"}> Player Global (x, y): </h3>
                         <p className={"debug-value"}>({this.state.playerGlobalX}, {this.state.playerGlobalY})</p>
+                    </div>
+                    <div className={"debug-row"}>
+                        <h3 className={"debug-title"}> Player Visibly (x, y): </h3>
+                        <p className={"debug-value"}>({this.state.playerVisibleX}, {this.state.playerVisibleY})</p>
                     </div>
                 </div>
             </div>
