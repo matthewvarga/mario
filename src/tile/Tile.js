@@ -46,10 +46,16 @@ export default class Tile {
     getSprite() {
         return this._sprite;
     }
+    setSprite(sprite) {
+        this._sprite = sprite;
+    }
     getState() {
         return this._state;
     }
     getType() {
         return this._type;
+    }
+    setType(type) {
+        this._type = type;
     }
 }

@@ -34,6 +34,10 @@ export default function _handleCollisionsByType(collisionTiles, dir) {
                                     );
 
                     Items.setItem(tile.getCol(), tile.getRow() - 1, coin);
+
+                    // update the sprite of the block since it is now empty, and change its type to brick
+                    tile.setSprite(27);
+                    tile.setType("BRICK");
                 }
                 break;
             default:
