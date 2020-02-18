@@ -34,7 +34,7 @@ the `Player` configuration is where you d
 **_Note:_** I do not own any of the resources used for this, such as the sprites.
 
 ## Running
-To run the application, clone the repo and rename the folder from mario to "scroller" (I may resolve this issue someday, but am too lazy right now). Then run `npm start` from the scroller directory. This requires create-react-app to be installed.
+ run `npm install` then `npm start` from the root directory.
 
 ## How it works
 ### Components
@@ -84,3 +84,12 @@ Understanding a sprite value.
 
 ``getSection(startCol, endCol, startRow, endRow)`` - this method allows you to retrieve only a portion of the layers tiles, restricted within the box that is defined by the startCol, endCol, startRow, and endRow. This is particularily important, because it allows for only the visible section of the layer to be selected, making it much easier for when we want to paint only visible content.
 
+## Screenshot of debug mode during development progress
+
+- air tiles are outlined in red
+- scenery tiles (clouds, bushes, etc..) outlined in blue
+- solid tiles outlined in blue (bricks, etc..)
+- player is red square
+- surrounding player tiles outlined in yellow
+- basic info given along side
+![debug screenshot](./progress_debug_mode.png)
